@@ -1,7 +1,3 @@
-
-
-
-
 package com.threedevs.quarkengine.core;
 
 import android.opengl.GLES20;
@@ -10,7 +6,10 @@ import android.opengl.Matrix;
 import android.util.Log;
 
 
+import com.threedevs.quarkengine.components.Camera;
+import com.threedevs.quarkengine.components.Shader;
 import com.threedevs.quarkengine.math.Matrix.Matrix4x4;
+import com.threedevs.quarkengine.math.Vector.Vector3;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -77,8 +76,6 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
     private Camera default_cam;
 
 
-    private CompositeObject test_marker_co;
-    private CompositeObject test_marker_text_co;
 
     private Matrix4x4 ortho_m = new Matrix4x4();
 
@@ -122,9 +119,6 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
         final float upY = 1.0f;
         final float upZ = 0.0f;
 
-        // Set the view matrix => camera position
-        Matrix.setLookAtM(mViewMatrix, 0, eyeX, eyeY, eyeZ, lookX, lookY, lookZ, upX, upY, upZ);
-
         // Create shader prog:
         createShaders();
 
@@ -135,9 +129,6 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
 
 
     /**
-     * Rendering of a single frame. Here we update and render the detected
-     * trackable list.
-     *
      * @param gl Unused context.
      */
     @Override
@@ -150,32 +141,8 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
                     default_cam.getZNEAR(), default_cam.getZFAR());
 
 
-            //retrieve the camera matrix
-            default_cam.clear_rotation_global();
-            default_cam.clear_rotation_local();
-            default_cam.add_rotation_local(angle_x,0.0,1.0,0.0);
-            default_cam.add_rotation_local(angle_y,1.0,0.0,0.0);
-
-
-
-
-
             // Clear Buffers:
             GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
-
-
-            // ------------------ get new markerlist if needed --------
-            if(mainInterface != null) {
-                if (mainInterface.getRecognizedTrackablesStatus()) {
-                    this.toRender = mainInterface.getRecognizedTrackables();
-                    if (toRender == null) {
-                        log.log(TAG, "Error getting list!");
-                        toRender = new ArrayList<Trackable>();
-                    } else
-                        log.debug(TAG, "Updated list – found " + this.toRender.size() + " " + "trackables.");
-                }
-            }
-
 
 
 
@@ -183,55 +150,6 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
 
 
             //      ------------------- simple shader -----------------
-            // render all objects in ObjectWorld ow!!!
-            if (ow != null) {
-
-
-                int x_pos = 0;
-                int y_pos = 0;
-                for (Trackable trackable : toRender) {
-
-                    //only use the first one ...
-
-
-                    //stop after first one...
-                    if(isTrackableInMapping(trackable)){
-                        setProcessesInVisible();
-                        setProcessVisible(trackable);
-
-                        //check for touch on the visible process
-                        if(touch_positions.size() > 0) {
-                            checkTouchOnProcess(trackable);
-                        }
-
-                        //get the screen pos from the Trackable object
-                        x_pos = trackable.getX();
-                        y_pos = trackable.getY();
-
-                        break;
-                    }
-
-                }
-                if(toRender.size() == 0){
-                    setProcessesInVisible();
-                }
-
-                Vector3 space_pos = space_pos = touch_to_space(default_cam, x_pos, y_pos);
-
-
-                //scale the pos (move away from origin)
-                Vector3 space_pos_scaled = space_pos.multiply(default_cam.getZNEAR() + (3.0 * scale));
-                //move away from camera pos (the position we want to render our model at...)
-                Vector3 final_space_pos = default_cam.getPosition().add(space_pos_scaled);
-
-                default_cam.set_position(default_cam.getPosition()
-                        .subtract(final_space_pos)
-                        .add(new Vector3(-this.pos_x / 100.0, this.pos_y / 100.0, 0.0)));
-
-
-                v_m = default_cam.get_view_matrix();
-                pv_m = p_m.multiply(v_m);
-
 
 
 
@@ -419,13 +337,6 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
 
 
             GLES20.glDisableVertexAttribArray(locPositionLine);
-
-
-
-
-            if (MainInterface.DEBUG_FRAME_LOGGING) {
-                log.debug(TAG, "OpenGL rendered frame in " + log.popTimer(this).time + "ms.");
-            }
         }
     }
 
@@ -448,36 +359,13 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
         window_size_y = height;
 
         GLES20.glViewport(0, 0, width, height);
-
-        /* no need
-        float f_x = mainInterface.camMatrix[0][0];
-        float f_y = mainInterface.camMatrix[1][1];
-        float c_x = mainInterface.camMatrix[0][2];
-        float c_y = mainInterface.camMatrix[1][2];
-
-        float aspectRatio = ((float) width / (float) height) * (f_y / f_x);
-        // Last number was originally 2f, but is better with 2.xf
-        float fovY = 1f / (f_x / (float) height * 2.6f);
-        float near = 0.1f;
-        float far = 1000f;
-        float frustum_height = near * fovY;
-        float frustum_width = frustum_height * aspectRatio;
-
-        float offset_x = (((float) width / 2f) - c_x) / (float) width *
-                frustum_width * 2f;
-        float offset_y = (((float) height / 2f) - c_y) / (float) height *
-                frustum_height * 2f;
-
-        Matrix.frustumM(mProjectionMatrix, 0, -frustum_width - offset_x, frustum_width - offset_x,
-                -frustum_height - offset_y, frustum_height - offset_y, near, far);
-        */
     }
 
 
 
 
 
-
+    /*
     private void drawModel(Model mdl){
         GLES20.glUseProgram(programSimple);
 
@@ -564,6 +452,8 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
         // Draw the triangle
         GLES20.glDrawArrays(GLES20.GL_LINES, 0, line.getVertexCount());
     }
+    */
+
 
 
     private void createBasicAssets(){
@@ -651,45 +541,7 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
         return projected_pos_normalized;
     }
 
-    public void setAngleX(float angle_x){
-        this.angle_x = angle_x;
-    }
 
-    public void setAngleY(float angle_y){
-        this.angle_y = angle_y;
-    }
-
-    public void setPosX(float pos_x){
-        this.pos_x = pos_x;
-    }
-
-    public void setPosY(float pos_y){
-        this.pos_y = pos_y;
-    }
-
-    public void setScale(float scale){
-        this.scale = scale;
-    }
-
-    public float getAngleX(){
-        return this.angle_x;
-    }
-
-    public float getAngleY(){
-        return this.angle_y;
-    }
-
-    public float getPosX(){
-        return this.pos_x;
-    }
-
-    public float getPosY(){
-        return this.pos_y;
-    }
-
-    public float getScale() {
-        return this.scale;
-    }
 
 
     /**

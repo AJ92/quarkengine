@@ -1,7 +1,8 @@
 package com.threedevs.quarkengine.components;
 
-import com.aj.processor.app.mathematics.Matrix.Matrix4x4;
-import com.aj.processor.app.mathematics.Vector.Vector3;
+
+import com.threedevs.quarkengine.math.Matrix.Matrix4x4;
+import com.threedevs.quarkengine.math.Vector.Vector3;
 
 /**
  * Created by AJ on 01.11.2014.

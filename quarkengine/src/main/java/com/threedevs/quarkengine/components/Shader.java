@@ -4,7 +4,7 @@ import android.content.res.AssetManager;
 import android.opengl.GLES20;
 import android.util.Log;
 
-import com.aj.processor.app.GlobalContext;
+import com.threedevs.quarkengine.core.GlobalContext;
 
 import java.io.BufferedReader;
 import java.io.IOException;
