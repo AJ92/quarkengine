@@ -6,6 +6,7 @@ import com.threedevs.quarkengine.components.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Created by AJ on 09.06.2016.
@@ -16,18 +17,22 @@ public class EntityManager {
 
     //eid, Entity
     private HashMap<Long, Entity> _entities; //stores all entities
-    //ComponentClass, Component
-    private HashMap<Class, ArrayList<Component> > _componentsByClass;
-    //ComponentClass, eid, Component
-    private HashMap<Class, HashMap<Long, ArrayList<Component> > > _componentsOfEntityByClass;
+    //ComponentClass, eid
+    private HashMap<Class, ArrayList<Long> > _entityidByComponentClass;
+    //eid, Component
+    private HashMap<Long, ArrayList<Component> > _componentsByEntity;
+    //eid, CompoenentClass
+    private HashMap<Long, ArrayList<Class> > _componentClassByEntity;
+
     private long _lowestUnassignedEid;
 
     public static final long INVALID_EID = Long.MIN_VALUE;
 
     public EntityManager(){
         _entities = new HashMap<>();
-        _componentsByClass = new HashMap<>();
-        _componentsOfEntityByClass = new HashMap<>();
+        _entityidByComponentClass = new HashMap<>();
+        _componentsByEntity = new HashMap<>();
+        _componentClassByEntity = new HashMap<>();
         _lowestUnassignedEid = Long.MIN_VALUE + 1;
     }
 
@@ -48,62 +53,70 @@ public class EntityManager {
         long generated_eid = generateNewEid();
         Entity entity = Entity.initWithEid(generated_eid);
         _entities.put(generated_eid, entity);
+        _componentsByEntity.put(generated_eid, new ArrayList<Component>());
+        _componentClassByEntity.put(generated_eid, new ArrayList<Class>());
         return entity;
     }
 
-    public void addComponentToEntity(Component comp, Entity e){
-        Class clazz = comp.getClass();
-
-        //_componentsOfEntityByClass
-        {
-            HashMap<Long, ArrayList<Component>> components;
-            if (_componentsOfEntityByClass.containsKey(clazz)) {
-                components = new HashMap<>();
-                _componentsOfEntityByClass.put(clazz, components);
-            } else {
-                components = _componentsOfEntityByClass.get(clazz);
-            }
-
-            ArrayList<Component> entityComponents;
-            if (!components.containsKey(e.eid())) {
-                entityComponents = new ArrayList<>();
-                components.put(e.eid(), entityComponents);
-            } else {
-                entityComponents = components.get(e.eid());
-            }
-            entityComponents.add(comp);
+    public void addComponentToEntity(Component comp, Entity e) {
+        long eid = e.eid();
+        if(!_entities.containsKey(eid)){
+            return;
         }
 
-
-        //_componentsByClass
+        Class clazz = comp.getClass();
+        //_entityidByComponentClass
         {
-            ArrayList<Component> components;
-            if (_componentsByClass.containsKey(clazz)) {
-                components = new ArrayList<>();
-                _componentsByClass.put(clazz, components);
+            ArrayList<Long> entities;
+            if (_entityidByComponentClass.containsKey(clazz)) {
+                entities = new ArrayList<>();
+                _entityidByComponentClass.put(clazz, entities);
             } else {
-                components = _componentsByClass.get(clazz);
+                entities = _entityidByComponentClass.get(clazz);
             }
-            components.add(comp);
+            if(!entities.contains(eid)) {
+                entities.add(eid);
+            }
+        }
+
+        //_componentsByEntity and _componentClassByEntity
+        {
+            ArrayList<Component> entityCompoenents   = _componentsByEntity.get(eid);
+            ArrayList<Class> entityCompoenentClasses = _componentClassByEntity.get(eid);
+            if(!entityCompoenents.contains(comp)) {
+                entityCompoenents.add(comp);
+                entityCompoenentClasses.add(clazz);
+            }
         }
     }
 
 
     public ArrayList<Component> getComponentsOfClassForEntity(Class clazz, Entity e){
-        ArrayList<Component> components;
-        if(_componentsOfEntityByClass.containsKey(clazz)){
-            HashMap<Long, ArrayList<Component> > componentsByEntity = _componentsOfEntityByClass.get(clazz);
-            if(componentsByEntity.containsKey(e.eid())){
-                return componentsByEntity.get(e.eid());
+        ArrayList<Component>    result = new ArrayList<>();
+        long eid = e.eid();
+        if(!_entityidByComponentClass.containsKey(clazz) || !_entities.containsKey(eid)){
+            return result;
+        }
+
+        ArrayList<Component>    entityComponents = new ArrayList<>();
+        ArrayList<Class>        entityComponentClasses = new ArrayList<>();
+        for(int i=0; i<entityComponentClasses.size(); i++){
+            if(entityComponentClasses.get(i) == clazz){
+                result.add(entityComponents.get(i));
             }
         }
-        components = new ArrayList<>();
-        return components;
+        return result;
     }
 
 
     public void removeEntity(Entity e){
-
+        Iterator it = _componentsOfEntityByClass.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry)it.next();
+            // avoids a ConcurrentModificationException
+            HashMap entitypair.getValue()
+            it.remove();
+        }
     }
 
     //TODO:
