@@ -110,16 +110,44 @@ public class EntityManager {
 
 
     public void removeEntity(Entity e){
-        Iterator it = _componentsOfEntityByClass.entrySet().iterator();
-        while (it.hasNext()) {
-            HashMap.Entry pair = (HashMap.Entry)it.next();
-            // avoids a ConcurrentModificationException
-            HashMap entitypair.getValue()
-            it.remove();
+        //get the Classes of all entity components
+        long eid = e.eid();
+
+        //clean up _componentClassByEntity
+        if(_componentClassByEntity.containsKey(eid)){
+            ArrayList<Class> entityComponentClasses = _componentClassByEntity.get(eid);
+            for(int i = 0; i < entityComponentClasses.size(); i++){
+                if(_entityidByComponentClass.containsKey(entityComponentClasses.get(i))){
+                    //get index of eid in class keyed hashmap...
+                    ArrayList<Long> eids = _entityidByComponentClass.get(entityComponentClasses.get(i));
+                    int index = eids.indexOf(eid);
+                    if(index != -1){
+                        eids.remove(index);
+                    }
+                }
+            }
+            _componentClassByEntity.remove(eid);
+        }
+
+        if(_componentsByEntity.containsKey(eid)){
+            _componentsByEntity.remove(eid);
+        }
+
+        if(_entities.containsKey(eid)){
+            _entities.remove(eid);
         }
     }
 
-    //TODO:
+    public ArrayList<Entity> getAllEntitiesPossesingCompoenetOfClass(Class clazz){
+        ArrayList<Entity> result = new ArrayList<>();
+        if(_entityidByComponentClass.containsKey(clazz)){
+            ArrayList<Long> eids = _entityidByComponentClass.get(clazz);
+            for(int i = 0; i < eids.size(); i++){
+                result.add(_entities.get(eids.get(i)));
+            }
+        }
+        return result;
+    }
 
 
 }
