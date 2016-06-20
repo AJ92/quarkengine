@@ -133,7 +133,9 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
      */
     @Override
     public void onDrawFrame(GL10 gl) {
+        GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
 
+        /*
         if(default_cam != null) {
             //create the projection matrix...
             p_m.set_to_identity();
@@ -155,9 +157,9 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
 
 
 
-                /*
-                        RENDER MODE SIMPLE
-                 */
+
+                //        RENDER MODE SIMPLE
+
                 if(ow.getStoreMode() == ObjectWorld.store_mode_simple) {
 
                     //MODELS
@@ -183,9 +185,9 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
                     GLES20.glDisableVertexAttribArray(locNormalSimple);
                     //MODELS DONE
                 }
-                /*
-                        RENDER MODE SIMPLE SORTED
-                 */
+
+                //        RENDER MODE SIMPLE SORTED
+
                 else if(ow.getStoreMode() == ObjectWorld.store_mode_simple_sorted){
                     //get all the data first
                     ArrayList<ArrayList<CompositeObject> > compositeObjects_mesh_list_simple_sorted = ow.getCompositeObjects_mesh_list_simple_sorted();
@@ -338,6 +340,7 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
 
             GLES20.glDisableVertexAttribArray(locPositionLine);
         }
+        */
     }
 
 

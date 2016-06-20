@@ -7,6 +7,7 @@ import com.threedevs.quarkengine.components.Component;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created by AJ on 09.06.2016.
@@ -36,7 +37,7 @@ public class EntityManager {
         _lowestUnassignedEid = Long.MIN_VALUE + 1;
     }
 
-    public long generateNewEid(){
+    private long generateNewEid(){
         if(_lowestUnassignedEid < Long.MAX_VALUE){
             return _lowestUnassignedEid++;
         }
@@ -61,6 +62,7 @@ public class EntityManager {
     public void addComponentToEntity(Component comp, Entity e) {
         long eid = e.eid();
         if(!_entities.containsKey(eid)){
+            debug();
             return;
         }
 
@@ -68,7 +70,7 @@ public class EntityManager {
         //_entityidByComponentClass
         {
             ArrayList<Long> entities;
-            if (_entityidByComponentClass.containsKey(clazz)) {
+            if (!_entityidByComponentClass.containsKey(clazz)) {
                 entities = new ArrayList<>();
                 _entityidByComponentClass.put(clazz, entities);
             } else {
@@ -76,6 +78,7 @@ public class EntityManager {
             }
             if(!entities.contains(eid)) {
                 entities.add(eid);
+                System.out.println("Added eid");
             }
         }
 
@@ -86,20 +89,25 @@ public class EntityManager {
             if(!entityCompoenents.contains(comp)) {
                 entityCompoenents.add(comp);
                 entityCompoenentClasses.add(clazz);
+                System.out.println("Added comp and clazz");
             }
         }
+        debug();
     }
 
 
     public ArrayList<Component> getComponentsOfClassForEntity(Class clazz, Entity e){
+
+        System.out.println("Searching for clazz: " + clazz + "  in Entity : " + e.eid());
+
         ArrayList<Component>    result = new ArrayList<>();
         long eid = e.eid();
         if(!_entityidByComponentClass.containsKey(clazz) || !_entities.containsKey(eid)){
             return result;
         }
 
-        ArrayList<Component>    entityComponents = new ArrayList<>();
-        ArrayList<Class>        entityComponentClasses = new ArrayList<>();
+        ArrayList<Component>    entityComponents = _componentsByEntity.get(eid);
+        ArrayList<Class>        entityComponentClasses = _componentClassByEntity.get(eid);
         for(int i=0; i<entityComponentClasses.size(); i++){
             if(entityComponentClasses.get(i) == clazz){
                 result.add(entityComponents.get(i));
@@ -149,5 +157,68 @@ public class EntityManager {
         return result;
     }
 
+    public void debug(){
+        //einfach bibidibabidi schreiben fertig - Frau Krieger
+        /*
+        private HashMap<Long, Entity> _entities;
+        private HashMap<Class, ArrayList<Long> > _entityidByComponentClass;
+        private HashMap<Long, ArrayList<Component> > _componentsByEntity;
+        private HashMap<Long, ArrayList<Class> > _componentClassByEntity;
+        */
+
+
+        {
+            System.out.println("");
+            System.out.println("###_entities-###");
+            ArrayList<Long> l = new ArrayList<Long>(_entities.keySet());
+            for (int i = 0; i < l.size(); i++) {
+                System.out.println("   " + l.get(i));
+                Entity l2 = _entities.get(l.get(i));
+                System.out.println("      " + l2.getClass());
+            }
+        }
+
+        {
+            System.out.println("");
+            System.out.println("###_entityidByComponentClass-###");
+            ArrayList<Class> l = new ArrayList<Class>(_entityidByComponentClass.keySet());
+            for (int i = 0; i < l.size(); i++) {
+                System.out.println("   " + l.get(i));
+                ArrayList<Long> l2 = _entityidByComponentClass.get(l.get(i));
+                for (int j = 0; j < l2.size(); j++) {
+                    System.out.println("      " + l2.get(j));
+
+                }
+            }
+        }
+
+        {
+            System.out.println("");
+            System.out.println("###_componentsByEntity-###");
+            ArrayList<Long> l = new ArrayList<Long>(_componentsByEntity.keySet());
+            for (int i = 0; i < l.size(); i++) {
+                System.out.println("   " + l.get(i));
+                ArrayList<Component> l2 = _componentsByEntity.get(l.get(i));
+                for (int j = 0; j < l2.size(); j++) {
+                    System.out.println("      " + l2.get(j).getClass());
+
+                }
+            }
+        }
+
+        {
+            System.out.println("");
+            System.out.println("###_componentClassByEntity-###");
+            ArrayList<Long> l = new ArrayList<Long>(_componentClassByEntity.keySet());
+            for (int i = 0; i < l.size(); i++) {
+                System.out.println("   " + l.get(i));
+                ArrayList<Class> l2 = _componentClassByEntity.get(l.get(i));
+                for (int j = 0; j < l2.size(); j++) {
+                    System.out.println("      " + l2.get(j));
+
+                }
+            }
+        }
+    }
 
 }
