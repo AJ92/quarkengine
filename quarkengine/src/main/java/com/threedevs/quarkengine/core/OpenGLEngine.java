@@ -91,8 +91,10 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
     private float render_mat[] = new float[16];
 
 
-    protected OpenGLEngine() {
+    private OpenGLSurfaceView surfaceView;
 
+    protected OpenGLEngine(OpenGLSurfaceView sv) {
+        surfaceView = sv;
     }
 
     /**
@@ -103,7 +105,8 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
      */
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        //purple 148,0,211
+        GLES20.glClearColor(148.0f/256.0f, 0.0f/256.0f, 211.0f/256.0f, 0.0f);
         // GLES20.glEnable(GLES20.GL_CULL_FACE);
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
@@ -123,6 +126,8 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
         createShaders();
 
         createBasicAssets();
+
+        surfaceView.onInit();
     }
 
 
@@ -133,6 +138,8 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
      */
     @Override
     public void onDrawFrame(GL10 gl) {
+        surfaceView.onPreDrawFrame();
+
         GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
 
         /*
@@ -341,6 +348,7 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
             GLES20.glDisableVertexAttribArray(locPositionLine);
         }
         */
+        surfaceView.onPostDrawFrame();
     }
 
 
@@ -552,7 +560,7 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
      * No magic involved
      */
     private void createShaders() {
-
+        /*
         //---------------LINE SHADER-------------------------
         //load shader and create a program out of it...
         Shader vertex_shader_line = new Shader("shaders/line.vsh",GLES20.GL_VERTEX_SHADER);
@@ -676,6 +684,7 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
 
         // Tell OpenGL to use this program when rendering.
         GLES20.glUseProgram(programSimple);
+        */
     }
 
 }

@@ -18,12 +18,22 @@ public class EntityManagerUnitTest {
     @Test
     public void entityManagerInit() throws Exception {
         EntityManager em = new EntityManager();
+
+        //test creating entity and adding a component to it
         Entity testEntity1 = em.createEntity();
         Position testEntity1pos = new Position();
         em.addComponentToEntity(testEntity1pos, testEntity1);
         ArrayList<Component> testEntity1Positions = em.getComponentsOfClassForEntity(Position.class, testEntity1);
         assertEquals(testEntity1Positions.size(), 1);
-
         assertEquals(testEntity1Positions.get(0), testEntity1pos);
+
+        //test getting all components of type
+        ArrayList<Entity> testEntities = em.getAllEntitiesPossesingCompoenetOfClass(Position.class);
+        assertEquals(testEntities.size(), 1);
+
+        //test removing the entity
+        em.removeEntity(testEntities.get(0));
+        ArrayList<Entity> testEntities2 = em.getAllEntitiesPossesingCompoenetOfClass(Position.class);
+        assertEquals(testEntities2.size(), 0);
     }
 }

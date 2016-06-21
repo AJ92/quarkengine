@@ -4,6 +4,7 @@ package com.threedevs.quarkengine.core;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -21,8 +22,8 @@ public class OpenGLSurfaceView extends GLSurfaceView {
     private ScaleGestureDetector sgd;
     private String TAG = "OpenGLSurfaceView";
 
-    public OpenGLSurfaceView(Context context) {
-        super(context);
+    public OpenGLSurfaceView(Context context, AttributeSet attrs) {
+        super(context, attrs);
 
         // Create an OpenGL ES 2.0 context.
         setEGLContextClientVersion(2);
@@ -30,7 +31,7 @@ public class OpenGLSurfaceView extends GLSurfaceView {
         setEGLContextClientVersion(2);
         setEGLConfigChooser(8, 8, 8, 8, 16, 0);
 
-        renderer = new OpenGLEngine();
+        renderer = new OpenGLEngine(this);
 
         setRenderer(renderer);
 
@@ -47,6 +48,17 @@ public class OpenGLSurfaceView extends GLSurfaceView {
     }
 
 
+    public void onInit(){
+
+    }
+
+    public void onPreDrawFrame(){
+
+    }
+
+    public void onPostDrawFrame(){
+
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {

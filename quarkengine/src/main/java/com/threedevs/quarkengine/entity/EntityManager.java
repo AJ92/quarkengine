@@ -78,7 +78,6 @@ public class EntityManager {
             }
             if(!entities.contains(eid)) {
                 entities.add(eid);
-                System.out.println("Added eid");
             }
         }
 
@@ -89,17 +88,12 @@ public class EntityManager {
             if(!entityCompoenents.contains(comp)) {
                 entityCompoenents.add(comp);
                 entityCompoenentClasses.add(clazz);
-                System.out.println("Added comp and clazz");
             }
         }
-        debug();
     }
 
 
     public ArrayList<Component> getComponentsOfClassForEntity(Class clazz, Entity e){
-
-        System.out.println("Searching for clazz: " + clazz + "  in Entity : " + e.eid());
-
         ArrayList<Component>    result = new ArrayList<>();
         long eid = e.eid();
         if(!_entityidByComponentClass.containsKey(clazz) || !_entities.containsKey(eid)){
@@ -159,14 +153,6 @@ public class EntityManager {
 
     public void debug(){
         //einfach bibidibabidi schreiben fertig - Frau Krieger
-        /*
-        private HashMap<Long, Entity> _entities;
-        private HashMap<Class, ArrayList<Long> > _entityidByComponentClass;
-        private HashMap<Long, ArrayList<Component> > _componentsByEntity;
-        private HashMap<Long, ArrayList<Class> > _componentClassByEntity;
-        */
-
-
         {
             System.out.println("");
             System.out.println("###_entities-###");
