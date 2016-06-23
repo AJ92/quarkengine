@@ -7,9 +7,6 @@ import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
-
-import java.util.Calendar;
 
 /**
  * Created by AJ on 14.11.2014.
@@ -19,7 +16,6 @@ import java.util.Calendar;
 public class OpenGLSurfaceView extends GLSurfaceView {
 
     private final OpenGLEngine renderer;
-    private ScaleGestureDetector sgd;
     private String TAG = "OpenGLSurfaceView";
 
     public OpenGLSurfaceView(Context context, AttributeSet attrs) {
@@ -39,12 +35,8 @@ public class OpenGLSurfaceView extends GLSurfaceView {
         getHolder().setFormat(PixelFormat.TRANSPARENT);
         setZOrderMediaOverlay(true);
 
-
-
         // Render the view all the time...
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
-
-        sgd = new ScaleGestureDetector(context, new ScaleListener());
     }
 
 
@@ -69,12 +61,10 @@ public class OpenGLSurfaceView extends GLSurfaceView {
         float x = e.getX();
         float y = e.getY();
 
-
         switch (e.getAction()) {
             case MotionEvent.ACTION_MOVE: {
                 break;
             }
-
 
             case MotionEvent.ACTION_DOWN: {
                 break;
@@ -86,17 +76,4 @@ public class OpenGLSurfaceView extends GLSurfaceView {
         }
         return true;
     }
-
-    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-        @Override
-        public boolean onScale(ScaleGestureDetector detector) {
-            /*
-            mPreviousScale *= (1.0f / detector.getScaleFactor());
-            mPreviousScale = Math.max(min_scale, Math.min(mPreviousScale, max_scale));
-            */
-            return true;
-        }
-    }
-
-
 }

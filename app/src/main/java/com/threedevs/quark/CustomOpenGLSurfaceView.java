@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 
 import com.threedevs.quarkengine.core.OpenGLSurfaceView;
 
@@ -33,6 +34,31 @@ public class CustomOpenGLSurfaceView extends OpenGLSurfaceView{
     @Override
     public void onPostDrawFrame(){
         Log.d(TAG,"onPostDrawFrame()");
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent e) {
+        // MotionEvent reports input details from the touch screen
+        // and other input controls. In this case, you are only
+        // interested in events where the touch position changed.
+
+        float x = e.getX();
+        float y = e.getY();
+
+        switch (e.getAction()) {
+            case MotionEvent.ACTION_MOVE: {
+                break;
+            }
+
+            case MotionEvent.ACTION_DOWN: {
+                break;
+            }
+
+            case MotionEvent.ACTION_UP: {
+                break;
+            }
+        }
+        return true;
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {

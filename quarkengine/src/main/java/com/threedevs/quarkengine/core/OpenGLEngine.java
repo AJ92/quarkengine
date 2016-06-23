@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.threedevs.quarkengine.components.Camera;
 import com.threedevs.quarkengine.components.Shader;
+import com.threedevs.quarkengine.entity.EntityManager;
 import com.threedevs.quarkengine.math.Matrix.Matrix4x4;
 import com.threedevs.quarkengine.math.Vector.Vector3;
 
@@ -21,6 +22,11 @@ import javax.microedition.khronos.opengles.GL10;
 public class OpenGLEngine implements GLSurfaceView.Renderer {
 
     private final String TAG = "OpenGLEngine";
+
+    //Entity manager
+    EntityManager em = new EntityManager();
+
+
 
     private int programLine;
     private int programSimple;
@@ -50,15 +56,7 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
     private final int mStrideBytes = 7 * mBytesPerFloat;
 
 
-
-
-
-
-
-
-
     //---------------------- new and better stuff ----------------------------
-
 
     //window dimensions, will be used to place models and more...
     //coords are retreived from onSurfaceChanged...
@@ -69,13 +67,7 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
     //DEFAULT MODEL to render in case we have broken models or so...
     //TODO:
 
-
-
-
-
     private Camera default_cam;
-
-
 
     private Matrix4x4 ortho_m = new Matrix4x4();
 
@@ -96,6 +88,8 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
     protected OpenGLEngine(OpenGLSurfaceView sv) {
         surfaceView = sv;
     }
+
+
 
     /**
      * Called when a surface is created.
