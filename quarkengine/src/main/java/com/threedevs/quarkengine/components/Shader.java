@@ -118,6 +118,13 @@ public class Shader extends Component{
                 return;
             }
         }
+
+        if (m_program_id <= 0) {
+            throw new RuntimeException("Error creating shader program:\n"+
+            "Vertex shader path: " + m_vertex_shader_path + "\n" +
+            "Fragment shader path: " + m_fragment_shader_path + "\n");
+        }
+
         m_error_string = "success";
         m_created_successfully = true;
     }
