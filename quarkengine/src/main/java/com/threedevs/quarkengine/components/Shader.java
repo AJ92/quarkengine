@@ -43,12 +43,14 @@ public class Shader extends Component{
 
         //load the shader source code.
         m_vertex_shader_source = load_shader_source(m_vertex_shader_path);
-        if(!m_created_successfully){
+        if(m_vertex_shader_source.equals("")){
+            m_error_string = "vertex shader source is empty";
             return;
         }
 
         m_fragment_shader_source = load_shader_source(m_fragment_shader_path);
-        if(!m_created_successfully){
+        if(m_fragment_shader_source.equals("")){
+            m_error_string = "fragment shader source is empty";
             return;
         }
 
@@ -153,18 +155,24 @@ public class Shader extends Component{
             is = am.open(path);
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e(TAG, "Error 1: InputStream could not be initialized...");
+            m_error_string = "Error 1: InputStream could not be initialized...";
+            Log.e(TAG, m_error_string);
+            m_created_successfully = false;
+            return "";
         }
+
         InputStreamReader isr = new InputStreamReader(is);
         try {
             if(!isr.ready()){
-                Log.e(TAG, "Error 2: InputStreamReader could not be initialized...");
+                m_error_string = "Error 2: InputStreamReader could not be initialized...";
+                Log.e(TAG, m_error_string);
                 m_created_successfully = false;
                 return "";
             }
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e(TAG, "Error 2: InputStreamReader could not be initialized...");
+            m_error_string = "Error 2: InputStreamReader could not be initialized...";
+            Log.e(TAG, m_error_string);
             m_created_successfully = false;
             return "";
         }
@@ -172,13 +180,15 @@ public class Shader extends Component{
         try {
             if (!file.ready())
             {
-                Log.e(TAG,"Error 3: Shader file could not be loaded...");
+                m_error_string = "Error 3: Shader file could not be loaded...";
+                Log.e(TAG, m_error_string);
                 m_created_successfully = false;
                 return "";
             }
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e(TAG,"Error 3: Shader file could not be loaded...");
+            m_error_string = "Error 3: Shader file could not be loaded...";
+            Log.e(TAG,m_error_string);
             m_created_successfully = false;
             return "";
         }
@@ -192,7 +202,8 @@ public class Shader extends Component{
             }
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e(TAG,"Error 4: Shader file line could not be read...");
+            m_error_string = "Error 4: Shader file line could not be read...";
+            Log.e(TAG,m_error_string);
             m_created_successfully = false;
             return "";
         }

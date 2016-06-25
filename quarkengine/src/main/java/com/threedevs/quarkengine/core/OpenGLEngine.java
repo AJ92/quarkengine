@@ -26,6 +26,11 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
     //Entity manager
     EntityManager em = new EntityManager();
 
+    //default resources and assets
+    Shader shader_simple = null;
+
+
+    boolean FATAL_ERROR = false;
 
 
     private int programLine;
@@ -554,6 +559,18 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
      * No magic involved
      */
     private void createShaders() {
+        //v2 shaders
+        //load shader and create a program out of it...
+        shader_simple = new Shader("shaders/simple.vsh", "shaders/simple.fsh");
+        if(!shader_simple.isCreatedSuccessfully()){
+            Log.e(TAG, shader_simple.getError());
+            FATAL_ERROR = true;
+            return;
+        }
+
+
+
+
         /*
         //---------------LINE SHADER-------------------------
         //load shader and create a program out of it...
@@ -679,6 +696,10 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
         // Tell OpenGL to use this program when rendering.
         GLES20.glUseProgram(programSimple);
         */
+    }
+
+    public Shader getDefaultShader(){
+        return shader_simple;
     }
 
 }
