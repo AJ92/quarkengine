@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.threedevs.quarkengine.components.Camera;
 import com.threedevs.quarkengine.components.Shader;
+import com.threedevs.quarkengine.components.Texture;
 import com.threedevs.quarkengine.entity.EntityManager;
 import com.threedevs.quarkengine.math.Matrix.Matrix4x4;
 import com.threedevs.quarkengine.math.Vector.Vector3;
@@ -28,7 +29,7 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
 
     //default resources and assets
     Shader shader_simple = null;
-
+    Texture texture_simple = null;
 
     boolean FATAL_ERROR = false;
 
@@ -473,6 +474,9 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
         cam.set_position(0.0,0.0,0.0);
         cam.setZFAR(300.0);
         default_cam = cam;
+
+
+        texture_simple = new Texture("bitmaps/default.png");
 
 
         //creates it's own ModelLoader

@@ -5,21 +5,21 @@ package com.threedevs.quarkengine.components;
  */
 public class Meta extends Component{
 
-    private String name = "";
+    private String _name = "";
 
     public Meta(){
         //convenience default constructor
     }
 
     public Meta(String name){
-        this.name = name;
+        _name = name;
     }
 
     public String getName(){
-        return name;
+        return _name;
     }
 
     public void setName(String name){
-        this.name = name;
+        _name = name;
     }
 }

@@ -20,115 +20,115 @@ import java.io.InputStreamReader;
  */
 public class Shader extends Component{
 
-    boolean m_created_successfully = false;
-    String m_vertex_shader_path = "";
-    String m_vertex_shader_source = "";
-    int m_vertex_shader_id = -1;
-    String m_fragment_shader_path = "";
-    String m_fragment_shader_source = "";
-    int m_fragment_shader_id = -1;
-    String m_error_string = "";
-    int m_program_id = -1;
+    boolean _created_successfully = false;
+    String _vertex_shader_path = "";
+    String _vertex_shader_source = "";
+    int _vertex_shader_id = -1;
+    String _fragment_shader_path = "";
+    String _fragment_shader_source = "";
+    int _fragment_shader_id = -1;
+    String _error_string = "";
+    int _program_id = -1;
 
     private String TAG = "Shader";
 
 
 
     public Shader(String vertexShaderPath,String fragmentShaderPath) {
-        m_created_successfully = false;
-        m_vertex_shader_path = vertexShaderPath;
-        m_fragment_shader_path = fragmentShaderPath;
-        m_error_string = "None";
+        _created_successfully = false;
+        _vertex_shader_path = vertexShaderPath;
+        _fragment_shader_path = fragmentShaderPath;
+        _error_string = "None";
 
 
         //load the shader source code.
-        m_vertex_shader_source = load_shader_source(m_vertex_shader_path);
-        if(m_vertex_shader_source.equals("")){
-            m_error_string = "vertex shader source is empty";
+        _vertex_shader_source = load_shader_source(_vertex_shader_path);
+        if(_vertex_shader_source.equals("")){
+            _error_string = "vertex shader source is empty";
             return;
         }
 
-        m_fragment_shader_source = load_shader_source(m_fragment_shader_path);
-        if(m_fragment_shader_source.equals("")){
-            m_error_string = "fragment shader source is empty";
+        _fragment_shader_source = load_shader_source(_fragment_shader_path);
+        if(_fragment_shader_source.equals("")){
+            _error_string = "fragment shader source is empty";
             return;
         }
 
 
         //create the shader, load the source and compile it
-        m_vertex_shader_id = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
-        GLES20.glShaderSource( m_vertex_shader_id, m_vertex_shader_source);
-        GLES20.glCompileShader(m_vertex_shader_id);
+        _vertex_shader_id = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
+        GLES20.glShaderSource(_vertex_shader_id, _vertex_shader_source);
+        GLES20.glCompileShader(_vertex_shader_id);
 
         //check if we could compile the stuff...
         int compileStatus_vertex[] = new int[1];
-        GLES20.glGetShaderiv(m_vertex_shader_id, GLES20.GL_COMPILE_STATUS, compileStatus_vertex, 0);
+        GLES20.glGetShaderiv(_vertex_shader_id, GLES20.GL_COMPILE_STATUS, compileStatus_vertex, 0);
         if (compileStatus_vertex[0] != 0){
-            m_error_string = "compiled successfully";
+            _error_string = "compiled successfully";
         }
         else{
-            m_error_string = "vertex shader compile failed...\n" +
-                    "Path: " + m_vertex_shader_path + "\n" +
-                    GLES20.glGetShaderInfoLog(m_vertex_shader_id);
-            GLES20.glDeleteShader(m_vertex_shader_id);
-            m_created_successfully = false;
+            _error_string = "vertex shader compile failed...\n" +
+                    "Path: " + _vertex_shader_path + "\n" +
+                    GLES20.glGetShaderInfoLog(_vertex_shader_id);
+            GLES20.glDeleteShader(_vertex_shader_id);
+            _created_successfully = false;
             return;
         }
 
 
         //create the shader, load the source and compile it
-        m_fragment_shader_id = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
-        GLES20.glShaderSource( m_fragment_shader_id, m_fragment_shader_source);
-        GLES20.glCompileShader(m_fragment_shader_id);
+        _fragment_shader_id = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
+        GLES20.glShaderSource(_fragment_shader_id, _fragment_shader_source);
+        GLES20.glCompileShader(_fragment_shader_id);
 
         //check if we could compile the stuff...
         int compileStatus_fragment[] = new int[1];
-        GLES20.glGetShaderiv(m_fragment_shader_id, GLES20.GL_COMPILE_STATUS, compileStatus_fragment, 0);
+        GLES20.glGetShaderiv(_fragment_shader_id, GLES20.GL_COMPILE_STATUS, compileStatus_fragment, 0);
         if (compileStatus_fragment[0] != 0){
-            m_error_string = "compiled successfully";
+            _error_string = "compiled successfully";
         }
         else{
-            m_error_string = "fragment shader compile failed...\n" +
-                    "Path: " + m_fragment_shader_path + "\n" +
-                    GLES20.glGetShaderInfoLog(m_fragment_shader_id);
-            GLES20.glDeleteShader(m_fragment_shader_id);
-            m_created_successfully = false;
+            _error_string = "fragment shader compile failed...\n" +
+                    "Path: " + _fragment_shader_path + "\n" +
+                    GLES20.glGetShaderInfoLog(_fragment_shader_id);
+            GLES20.glDeleteShader(_fragment_shader_id);
+            _created_successfully = false;
             return;
         }
 
 
         //Link the shaders to a program
-        m_program_id = GLES20.glCreateProgram();
-        if (m_program_id != 0) {
+        _program_id = GLES20.glCreateProgram();
+        if (_program_id != 0) {
             // Bind the vertex shader to the program.
-            GLES20.glAttachShader(m_program_id, m_vertex_shader_id);
+            GLES20.glAttachShader(_program_id, _vertex_shader_id);
             // Bind the fragment shader to the program.
-            GLES20.glAttachShader(m_program_id, m_fragment_shader_id);
+            GLES20.glAttachShader(_program_id, _fragment_shader_id);
             // Bind attribute
             //GLES20.glBindAttribLocation(programLine, 0, "a_Position");
             // Link the two shaders together into a program.
-            GLES20.glLinkProgram(m_program_id);
+            GLES20.glLinkProgram(_program_id);
             // Get the link status.
             final int[] linkStatus = new int[1];
-            GLES20.glGetProgramiv(m_program_id, GLES20.GL_LINK_STATUS, linkStatus, 0);
+            GLES20.glGetProgramiv(_program_id, GLES20.GL_LINK_STATUS, linkStatus, 0);
             // If the link failed, delete the program.
             if (linkStatus[0] == 0) {
-                GLES20.glDeleteProgram(m_program_id);
-                m_program_id = -1;
-                m_error_string = "linking failed...";
-                m_created_successfully = false;
+                GLES20.glDeleteProgram(_program_id);
+                _program_id = -1;
+                _error_string = "linking failed...";
+                _created_successfully = false;
                 return;
             }
         }
 
-        if (m_program_id <= 0) {
+        if (_program_id <= 0) {
             throw new RuntimeException("Error creating shader program:\n"+
-            "Vertex shader path: " + m_vertex_shader_path + "\n" +
-            "Fragment shader path: " + m_fragment_shader_path + "\n");
+            "Vertex shader path: " + _vertex_shader_path + "\n" +
+            "Fragment shader path: " + _fragment_shader_path + "\n");
         }
 
-        m_error_string = "success";
-        m_created_successfully = true;
+        _error_string = "success";
+        _created_successfully = true;
     }
 
     public void destroy(){
@@ -139,11 +139,11 @@ public class Shader extends Component{
 
 
     public boolean isCreatedSuccessfully(){
-        return m_created_successfully;
+        return _created_successfully;
     }
 
     public String getError(){
-        return m_error_string;
+        return _error_string;
     }
 
 
@@ -155,41 +155,41 @@ public class Shader extends Component{
             is = am.open(path);
         } catch (IOException e) {
             e.printStackTrace();
-            m_error_string = "Error 1: InputStream could not be initialized...";
-            Log.e(TAG, m_error_string);
-            m_created_successfully = false;
+            _error_string = "Error 1: InputStream could not be initialized...";
+            Log.e(TAG, _error_string);
+            _created_successfully = false;
             return "";
         }
 
         InputStreamReader isr = new InputStreamReader(is);
         try {
             if(!isr.ready()){
-                m_error_string = "Error 2: InputStreamReader could not be initialized...";
-                Log.e(TAG, m_error_string);
-                m_created_successfully = false;
+                _error_string = "Error 2: InputStreamReader could not be initialized...";
+                Log.e(TAG, _error_string);
+                _created_successfully = false;
                 return "";
             }
         } catch (IOException e) {
             e.printStackTrace();
-            m_error_string = "Error 2: InputStreamReader could not be initialized...";
-            Log.e(TAG, m_error_string);
-            m_created_successfully = false;
+            _error_string = "Error 2: InputStreamReader could not be initialized...";
+            Log.e(TAG, _error_string);
+            _created_successfully = false;
             return "";
         }
         BufferedReader file= new BufferedReader(isr);
         try {
             if (!file.ready())
             {
-                m_error_string = "Error 3: Shader file could not be loaded...";
-                Log.e(TAG, m_error_string);
-                m_created_successfully = false;
+                _error_string = "Error 3: Shader file could not be loaded...";
+                Log.e(TAG, _error_string);
+                _created_successfully = false;
                 return "";
             }
         } catch (IOException e) {
             e.printStackTrace();
-            m_error_string = "Error 3: Shader file could not be loaded...";
-            Log.e(TAG,m_error_string);
-            m_created_successfully = false;
+            _error_string = "Error 3: Shader file could not be loaded...";
+            Log.e(TAG, _error_string);
+            _created_successfully = false;
             return "";
         }
 
@@ -202,9 +202,9 @@ public class Shader extends Component{
             }
         } catch (IOException e) {
             e.printStackTrace();
-            m_error_string = "Error 4: Shader file line could not be read...";
-            Log.e(TAG,m_error_string);
-            m_created_successfully = false;
+            _error_string = "Error 4: Shader file line could not be read...";
+            Log.e(TAG, _error_string);
+            _created_successfully = false;
             return "";
         }
 

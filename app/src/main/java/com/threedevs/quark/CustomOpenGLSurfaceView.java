@@ -28,12 +28,12 @@ public class CustomOpenGLSurfaceView extends OpenGLSurfaceView{
 
     @Override
     public void onPreDrawFrame(){
-        Log.d(TAG,"onPreDrawFrame()");
+        //Log.d(TAG,"onPreDrawFrame()");
     }
 
     @Override
     public void onPostDrawFrame(){
-        Log.d(TAG,"onPostDrawFrame()");
+        //Log.d(TAG,"onPostDrawFrame()");
     }
 
     @Override
