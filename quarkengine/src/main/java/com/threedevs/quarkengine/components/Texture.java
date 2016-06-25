@@ -12,7 +12,6 @@ import com.threedevs.quarkengine.core.GlobalContext;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -24,103 +23,29 @@ public class Texture extends Component{
 
     private static String TAG = "Texture";
 
-    private static ArrayList<Long> _texturePathIDs = new ArrayList<>();
-    private static long _lowestUnassignedTexturePathID = Long.MIN_VALUE + 1;
-    public static final long INVALID_TEXTUREPATHID = Long.MIN_VALUE;
-
-    //holds all texture paths to identify if a texture was already initialized...
-    private static HashMap<String, Long>    _texturePathIDByTexturePath = new HashMap<>();
-    private static HashMap<Long, Bitmap>    _bitmapsByTexturePathID = new HashMap<>();
-    private static HashMap<Long, Integer>   _textureIDByTexturePathID = new HashMap<>();
-    private static HashMap<Long, Integer>   _instanceCountByTexturePathID = new HashMap<>();
 
     //Fallback solution...
-    private static String _defaultBitmapPath = "bitmaps/default.png";
+    public final static String _defaultBitmapPath = "bitmaps/default.png";
 
     //real data of Texture Component:
     private String _texturePath = "";
     private int _textureID = 0; //0 is openGL's default "black" texture...
     private Bitmap _bitmap = null;
 
-    //the hash key
-    private long _texturePathID = -1;
 
     private boolean _createdSuccessfully = false;
 
     public Texture(String texturePath){
         _texturePath = texturePath;
-        if(isTextureCached()){
-            if(loadCachedTexture()){
-                _createdSuccessfully = true;
-            }
-            return;
-        }
-
-        if(!loadNewTexture()){
-            //try reload with default values
-            _texturePath = _defaultBitmapPath;
-            if(isTextureCached()){
-                if(loadCachedTexture()){
-                    _createdSuccessfully = true;
-                }
-                return;
-            }
-            if(loadNewTexture()){
-                _createdSuccessfully = true;
-            }
-        }
-        else{
+        if(loadTexture()){
             _createdSuccessfully = true;
         }
     }
 
-    private static long generateNewTexturePathID(){
-        if(_lowestUnassignedTexturePathID < Long.MAX_VALUE){
-            return _lowestUnassignedTexturePathID++;
-        }
-        for(long l = Long.MIN_VALUE + 1; l < Long.MAX_VALUE; l++ ){
-            if(!_texturePathIDs.contains(l)){
-                return l;
-            }
-        }
-        Log.e(TAG, "Error: No available texturePathID");
-        return INVALID_TEXTUREPATHID;
-    }
-
-    //if the _texturePathIDByTexturePath hashmap contains the texturePath
-    //then the texture is cached and can be used as is...
-    private boolean isTextureCached(){
-        if(_texturePathIDByTexturePath.containsKey(_texturePath)){
-            return true;
-        }
-        return false;
-    }
-
-    private boolean loadCachedTexture(){
-        //get texturePathID
-        Long texturePathID = _texturePathIDByTexturePath.get(_texturePath);
-        if(texturePathID == null){
-            return false;
-        }
-        _bitmap = _bitmapsByTexturePathID.get(texturePathID);
-        _textureID = _textureIDByTexturePathID.get(texturePathID);
-        _instanceCountByTexturePathID.put(
-                texturePathID,
-                _instanceCountByTexturePathID.get(texturePathID) + 1
-        );
-
-        if(_bitmap != null){
-            if(_textureID >= 0){ // 0 might be a valid texture...
-                _texturePathID = texturePathID;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean loadNewTexture(){
+    private boolean loadTexture(){
         _bitmap = load_bitmap_rgba(_texturePath);
         if(_bitmap == null){
+            Log.e(TAG, "could not load bitmap");
             return false;
         }
 
@@ -134,17 +59,9 @@ public class Texture extends Component{
         _textureID = gl_map[0];
 
         if(!load_gl_texture_rgba(_textureID, _bitmap)){
+            Log.e(TAG, "could not upload bitmap to gpu");
             return false;
         }
-
-        //on success insert new data into hashmaps
-        _texturePathID = generateNewTexturePathID();
-        _texturePathIDs.add(_texturePathID);
-
-        _texturePathIDByTexturePath.put(_texturePath, _texturePathID);
-        _bitmapsByTexturePathID.put(_texturePathID,_bitmap);
-        _textureIDByTexturePathID.put(_texturePathID, _textureID);
-        _instanceCountByTexturePathID.put(_texturePathID, 1); //instance count
         return true;
     }
 
@@ -229,5 +146,9 @@ public class Texture extends Component{
 
     public boolean isCreatedSuccessfully(){
         return _createdSuccessfully;
+    }
+
+    public String getTexturePath(){
+        return _texturePath;
     }
 }

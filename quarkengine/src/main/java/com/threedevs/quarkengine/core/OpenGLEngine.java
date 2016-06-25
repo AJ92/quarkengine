@@ -30,6 +30,7 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
     //default resources and assets
     Shader shader_simple = null;
     Texture texture_simple = null;
+    Texture texture_simple_2 = null;
 
     boolean FATAL_ERROR = false;
 
@@ -477,7 +478,7 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
 
 
         texture_simple = new Texture("bitmaps/default.png");
-
+        texture_simple_2 = new Texture("bitmaps/default.png");
 
         //creates it's own ModelLoader
         //simple storage mode is a linear unsorted list of models!!!
