@@ -5,6 +5,7 @@ import com.threedevs.quarkengine.components.Position;
 import com.threedevs.quarkengine.components.Rotation;
 import com.threedevs.quarkengine.components.Shader;
 import com.threedevs.quarkengine.components.Texture;
+import com.threedevs.quarkengine.components.cache.TextureCache;
 import com.threedevs.quarkengine.core.OpenGLEngine;
 import com.threedevs.quarkengine.entity.Entity;
 import com.threedevs.quarkengine.entity.EntityManager;
@@ -25,6 +26,10 @@ public class SpriteFactory {
         this.em = em;
     }
 
+    /*
+    Creates a sprite entity with a default shader for bitmaps
+    using the bitmap Texture provided.
+     */
     public Entity createSprite(Texture bitmap){
         Entity e = em.createEntity();
         em.addComponentToEntity(new Meta("sprite-" + e.eid()), e);
@@ -35,6 +40,25 @@ public class SpriteFactory {
         return e;
     }
 
+    /*
+    Creates a sprite entity with a default shader for bitmaps
+    using path to load a bitmap Texture which might be an instance
+    if already loaded one.
+     */
+    public Entity createSprite(String bitmapPath){
+        Entity e = em.createEntity();
+        em.addComponentToEntity(new Meta("sprite-" + e.eid()), e);
+        em.addComponentToEntity(new Rotation(), e);
+        em.addComponentToEntity(new Position(), e);
+        em.addComponentToEntity(renderer.getDefaultShader(), e);
+        em.addComponentToEntity(TextureCache.createTexture(bitmapPath), e);
+        return e;
+    }
+
+    /*
+    Creates a sprite entity with a custom shader for bitmaps
+    using the bitmap Texture provided.
+     */
     public Entity createSprite(Texture bitmap, Shader shader){
         Entity e = em.createEntity();
         em.addComponentToEntity(new Meta("sprite-" + e.eid()), e);
@@ -42,6 +66,21 @@ public class SpriteFactory {
         em.addComponentToEntity(new Position(), e);
         em.addComponentToEntity(shader, e);
         em.addComponentToEntity(bitmap, e);
+        return e;
+    }
+
+    /*
+    Creates a sprite entity with a custom shader for bitmaps
+    using path to load a bitmap Texture which might be an instance
+    if already loaded one.
+     */
+    public Entity createSprite(String bitmapPath, Shader shader){
+        Entity e = em.createEntity();
+        em.addComponentToEntity(new Meta("sprite-" + e.eid()), e);
+        em.addComponentToEntity(new Rotation(), e);
+        em.addComponentToEntity(new Position(), e);
+        em.addComponentToEntity(shader, e);
+        em.addComponentToEntity(TextureCache.createTexture(bitmapPath), e);
         return e;
     }
 
