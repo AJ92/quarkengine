@@ -2,16 +2,18 @@ package com.threedevs.quarkengine.core;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.opengl.Matrix;
 import android.util.Log;
 
 
 import com.threedevs.quarkengine.components.Camera;
-import com.threedevs.quarkengine.components.Shader;
-import com.threedevs.quarkengine.components.Texture;
+import com.threedevs.quarkengine.components.gfx.Geometry;
+import com.threedevs.quarkengine.components.gfx.Shader;
+import com.threedevs.quarkengine.components.gfx.Texture;
 import com.threedevs.quarkengine.entity.EntityManager;
+import com.threedevs.quarkengine.entity.factory.SpriteFactory;
 import com.threedevs.quarkengine.math.Matrix.Matrix4x4;
 import com.threedevs.quarkengine.math.Vector.Vector3;
+import com.threedevs.quarkengine.systems.SpriteRenderSystem;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -25,11 +27,18 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
     private final String TAG = "OpenGLEngine";
 
     //Entity manager
-    EntityManager em = new EntityManager();
+    public final EntityManager entityManager = new EntityManager();
+
+    //factories for entities
+    public final SpriteFactory spriteFactory = SpriteFactory.initWithRendererAndEntityManager(this, entityManager);
+
+    //systems
+    public final SpriteRenderSystem spriteRenderSystem = new SpriteRenderSystem(entityManager);
 
     //default resources and assets
     Shader shader_simple = null;
     Texture texture_simple = null;
+    Geometry sprite_geometry = null;
 
     boolean FATAL_ERROR = false;
 
@@ -127,10 +136,30 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
 
         createBasicAssets();
 
+        spriteRenderSystem.setRenderer(this);
+
         surfaceView.onInit();
     }
 
 
+
+
+    public void eventFrame(){
+
+    }
+
+    public void drawWorld(){
+        GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
+        spriteRenderSystem.update(0.0f);
+    }
+
+    public void postProcess(){
+
+    }
+
+    public void drawUi(){
+
+    }
 
 
     /**
@@ -140,7 +169,15 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 gl) {
         surfaceView.onPreDrawFrame();
 
-        GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
+        eventFrame();
+        drawWorld();
+
+        surfaceView.onPostDrawFrame();
+        postProcess();
+
+        drawUi();
+
+
 
         /*
         if(default_cam != null) {
@@ -348,7 +385,7 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
             GLES20.glDisableVertexAttribArray(locPositionLine);
         }
         */
-        surfaceView.onPostDrawFrame();
+
     }
 
 
@@ -478,6 +515,43 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
 
         texture_simple = new Texture("bitmaps/default.png");
 
+        float vertices[] = {
+                1.0f, -1.0f, 0.0f,  //triangle 1
+                -1.0f, -1.0f, 0.0f,
+                -1.0f, 1.0f, 0.0f,
+
+                -1.0f, 1.0f, 0.0f,  //triangle 2
+                1.0f, 1.0f, 0.0f,
+                1.0f, -1.0f, 0.0f
+        };
+        float texcoords[] = {
+                1.0f, 1.0f, 0.0f,  //triangle 1
+                0.0f, 1.0f, 0.0f,
+                0.0f, 0.0f, 0.0f,
+
+                0.0f, 0.0f, 0.0f,  //triangle 2
+                1.0f, 0.0f, 0.0f,
+                1.0f, 1.0f, 0.0f
+        };
+        float normals[] = {
+                0.0f, 0.0f, 1.0f,  //triangle 1
+                0.0f, 0.0f, 1.0f,
+                0.0f, 0.0f, 1.0f,
+
+                0.0f, 0.0f, 1.0f,  //triangle 2
+                0.0f, 0.0f, 1.0f,
+                0.0f, 0.0f, 1.0f
+        };
+
+        sprite_geometry = new Geometry(
+                "2d-plane",
+                2, //triangle count
+                vertices,
+                texcoords,
+                normals
+        );
+
+        sprite_geometry.loadGLdata();
 
         //creates it's own ModelLoader
         //simple storage mode is a linear unsorted list of models!!!
@@ -706,4 +780,7 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
         return shader_simple;
     }
 
+    public Geometry getDefaultSpriteGeometry() {
+        return sprite_geometry;
+    }
 }

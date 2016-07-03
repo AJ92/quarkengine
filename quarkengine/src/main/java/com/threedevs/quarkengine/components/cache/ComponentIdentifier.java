@@ -1,4 +1,4 @@
-package com.threedevs.quarkengine.components;
+package com.threedevs.quarkengine.components.cache;
 
 import android.util.Log;
 

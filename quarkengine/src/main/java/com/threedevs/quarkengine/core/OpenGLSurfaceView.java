@@ -12,10 +12,9 @@ import android.view.MotionEvent;
  * Created by AJ on 14.11.2014.
  */
 
-//TODO: create a callback from the openGL renderer to this view and try to set up NodeView
 public class OpenGLSurfaceView extends GLSurfaceView {
 
-    private final OpenGLEngine renderer;
+    protected final OpenGLEngine renderer;
     private String TAG = "OpenGLSurfaceView";
 
     public OpenGLSurfaceView(Context context, AttributeSet attrs) {

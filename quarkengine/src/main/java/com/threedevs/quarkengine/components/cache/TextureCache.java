@@ -1,10 +1,8 @@
 package com.threedevs.quarkengine.components.cache;
 
-import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.threedevs.quarkengine.components.ComponentIdentifier;
-import com.threedevs.quarkengine.components.Texture;
+import com.threedevs.quarkengine.components.gfx.Texture;
 
 import java.util.HashMap;
 

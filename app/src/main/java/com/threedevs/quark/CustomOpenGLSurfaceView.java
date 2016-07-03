@@ -24,6 +24,7 @@ public class CustomOpenGLSurfaceView extends OpenGLSurfaceView{
     @Override
     public void onInit(){
         Log.d(TAG,"onInit()");
+        renderer.spriteFactory.createSprite("bitmaps/default.png");
     }
 
     @Override

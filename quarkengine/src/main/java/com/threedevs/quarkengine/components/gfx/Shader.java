@@ -1,9 +1,10 @@
-package com.threedevs.quarkengine.components;
+package com.threedevs.quarkengine.components.gfx;
 
 import android.content.res.AssetManager;
 import android.opengl.GLES20;
 import android.util.Log;
 
+import com.threedevs.quarkengine.components.Component;
 import com.threedevs.quarkengine.core.GlobalContext;
 
 import java.io.BufferedReader;
@@ -18,17 +19,17 @@ import java.io.InputStreamReader;
  *
  * creates an openGL Shaderprogramm out of vertex and fragment shader sources
  */
-public class Shader extends Component{
+public class Shader extends Component {
 
-    boolean _created_successfully = false;
-    String _vertex_shader_path = "";
-    String _vertex_shader_source = "";
-    int _vertex_shader_id = -1;
-    String _fragment_shader_path = "";
-    String _fragment_shader_source = "";
-    int _fragment_shader_id = -1;
-    String _error_string = "";
-    int _program_id = -1;
+    private boolean _created_successfully = false;
+    private String _vertex_shader_path = "";
+    private String _vertex_shader_source = "";
+    private int _vertex_shader_id = -1;
+    private String _fragment_shader_path = "";
+    private String _fragment_shader_source = "";
+    private int _fragment_shader_id = -1;
+    private String _error_string = "";
+    private int _program_id = -1;
 
     private String TAG = "Shader";
 
@@ -136,7 +137,9 @@ public class Shader extends Component{
         //destroy the shader...
     }
 
-
+    public int getProgramID(){
+        return _program_id;
+    }
 
     public boolean isCreatedSuccessfully(){
         return _created_successfully;
@@ -180,14 +183,14 @@ public class Shader extends Component{
         try {
             if (!file.ready())
             {
-                _error_string = "Error 3: Shader file could not be loaded...";
+                _error_string = "Error 3: Shader file could not be _loaded...";
                 Log.e(TAG, _error_string);
                 _created_successfully = false;
                 return "";
             }
         } catch (IOException e) {
             e.printStackTrace();
-            _error_string = "Error 3: Shader file could not be loaded...";
+            _error_string = "Error 3: Shader file could not be _loaded...";
             Log.e(TAG, _error_string);
             _created_successfully = false;
             return "";

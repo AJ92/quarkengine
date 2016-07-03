@@ -6,10 +6,10 @@ import com.threedevs.quarkengine.entity.EntityManager;
  * Created by AJ on 15.06.2016.
  */
 public class System {
-    private EntityManager entityManager;
+    protected EntityManager _entityManager;
 
     public System(EntityManager em){
-        entityManager = em;
+        _entityManager = em;
     }
 
     public void update(float dt){

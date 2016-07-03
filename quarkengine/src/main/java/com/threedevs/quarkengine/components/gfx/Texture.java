@@ -1,4 +1,4 @@
-package com.threedevs.quarkengine.components;
+package com.threedevs.quarkengine.components.gfx;
 
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -8,6 +8,7 @@ import android.opengl.GLES20;
 import android.opengl.GLUtils;
 import android.util.Log;
 
+import com.threedevs.quarkengine.components.Component;
 import com.threedevs.quarkengine.core.GlobalContext;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ import java.util.HashMap;
  * Created by AJ on 06.06.2016.
  */
 
-public class Texture extends Component{
+public class Texture extends Component {
     //kind of a strange Component which manages itself and all other components...
 
     private static String TAG = "Texture";
@@ -111,7 +112,7 @@ public class Texture extends Component{
 
         if(slot == 0){
             //looks like we couldn't load the texture and GLES gave us back the default black tex...
-            Log.e(TAG,"tex slot " + slot + " could not be loaded...");
+            Log.e(TAG,"tex slot " + slot + " could not be _loaded...");
             return false;
         }
         return true;
@@ -150,5 +151,9 @@ public class Texture extends Component{
 
     public String getTexturePath(){
         return _texturePath;
+    }
+
+    public int getTextureID(){
+        return _textureID;
     }
 }
