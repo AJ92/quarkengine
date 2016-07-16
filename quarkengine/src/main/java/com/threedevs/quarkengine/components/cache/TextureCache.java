@@ -18,8 +18,8 @@ public class TextureCache {
     private static ComponentIdentifier cid = new ComponentIdentifier();
 
     //holds all texture paths to identify if a texture was already initialized...
-    private static HashMap<String, Long>    _cachekeyByTexturePath = new HashMap<>();
-    private static HashMap<Long, Texture>   _textureObjectByCachekey = new HashMap<>();
+    private static HashMap<String, Integer>    _cachekeyByTexturePath = new HashMap<>();
+    private static HashMap<Integer, Texture>   _textureObjectByCachekey = new HashMap<>();
 
 
     //if the _cachekeyByTexturePath hashmap contains the texturePath
@@ -34,7 +34,7 @@ public class TextureCache {
     //returns a valid Texture object reference or null if not cached yet...
     private static Texture loadCachedTexture(String bitmapPath){
         //get texturePathID
-        Long cachekey = _cachekeyByTexturePath.get(bitmapPath);
+        Integer cachekey = _cachekeyByTexturePath.get(bitmapPath);
         if(cachekey == null){
             return null;
         }
@@ -56,7 +56,7 @@ public class TextureCache {
         Texture uncached_tex_ref = new Texture(Texture._defaultBitmapPath);
         if(uncached_tex_ref.isCreatedSuccessfully()){
             //add to cache hashmaps...
-            long id = cid.generateID();
+            int id = cid.generateID();
             _cachekeyByTexturePath.put(Texture._defaultBitmapPath, id);
             _textureObjectByCachekey.put(id, uncached_tex_ref);
 
@@ -85,7 +85,7 @@ public class TextureCache {
         Texture uncached_tex_ref = new Texture(bitmapPath);
         if(uncached_tex_ref.isCreatedSuccessfully()){
             //add to cache hashmaps...
-            long id = cid.generateID();
+            int id = cid.generateID();
             _cachekeyByTexturePath.put(uncached_tex_ref.getTexturePath(), id);
             _textureObjectByCachekey.put(id, uncached_tex_ref);
             return uncached_tex_ref;

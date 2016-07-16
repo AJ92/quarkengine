@@ -7,18 +7,18 @@ package com.threedevs.quarkengine.entity;
 public class Entity {
     //entity ID
     //unique ID in it's system
-    private long _eid;
+    private int _eid;
 
-    public Entity(long init_eid){
+    public Entity(int init_eid){
         _eid = init_eid;
     }
 
-    public long eid(){
+    public int eid(){
         return _eid;
     }
 
     //static method for creation...
-    public static Entity initWithEid(long init_eid){
+    public static Entity initWithEid(int init_eid){
         return new Entity(init_eid);
     }
 }

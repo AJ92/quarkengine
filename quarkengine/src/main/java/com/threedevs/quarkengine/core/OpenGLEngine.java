@@ -150,6 +150,7 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
 
     public void drawWorld(){
         GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
+        //Log.e(TAG, "drawWorld");
         spriteRenderSystem.update(0.0f);
     }
 

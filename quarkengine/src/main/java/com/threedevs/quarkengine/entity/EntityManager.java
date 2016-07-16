@@ -17,31 +17,42 @@ public class EntityManager {
     private String TAG = "EntityManager";
 
     //eid, Entity
-    private HashMap<Long, Entity> _entities; //stores all entities
+    private HashMap<Integer, Entity> _entities; //stores all entities
     //ComponentClass, eid
-    private HashMap<Class, ArrayList<Long> > _entityidByComponentClass;
+    private HashMap<Class, ArrayList<Integer> > _entityidByComponentClass;
     //eid, Component
-    private HashMap<Long, ArrayList<Component> > _componentsByEntity;
+    private HashMap<Integer, ArrayList<Component> > _componentsByEntity;
     //eid, CompoenentClass
-    private HashMap<Long, ArrayList<Class> > _componentClassByEntity;
+    private HashMap<Integer, ArrayList<Class> > _componentClassByEntity;
 
-    private long _lowestUnassignedEid;
+    private int _lowestUnassignedEid;
 
-    public static final long INVALID_EID = Long.MIN_VALUE;
+    public static final int INVALID_EID = Integer.MIN_VALUE;
+
+
+    private int _changes = 0;
 
     public EntityManager(){
         _entities = new HashMap<>();
         _entityidByComponentClass = new HashMap<>();
         _componentsByEntity = new HashMap<>();
         _componentClassByEntity = new HashMap<>();
-        _lowestUnassignedEid = Long.MIN_VALUE + 1;
+        _lowestUnassignedEid = Integer.MIN_VALUE + 1;
     }
 
-    private long generateNewEid(){
-        if(_lowestUnassignedEid < Long.MAX_VALUE){
+    private void change(){
+        _changes += 1;
+    }
+
+    public int getChanges(){
+        return _changes;
+    }
+
+    private int generateNewEid(){
+        if(_lowestUnassignedEid < Integer.MAX_VALUE){
             return _lowestUnassignedEid++;
         }
-        for(long l = Long.MIN_VALUE + 1; l < Long.MAX_VALUE; l++ ){
+        for(int l = Integer.MIN_VALUE + 1; l < Integer.MAX_VALUE; l++ ){
             if(!_entities.containsKey(l)){
                 return l;
             }
@@ -51,16 +62,17 @@ public class EntityManager {
     }
 
     public Entity createEntity(){
-        long generated_eid = generateNewEid();
+        int generated_eid = generateNewEid();
         Entity entity = Entity.initWithEid(generated_eid);
         _entities.put(generated_eid, entity);
         _componentsByEntity.put(generated_eid, new ArrayList<Component>());
         _componentClassByEntity.put(generated_eid, new ArrayList<Class>());
+        change();
         return entity;
     }
 
     public void addComponentToEntity(Component comp, Entity e) {
-        long eid = e.eid();
+        int eid = e.eid();
         if(!_entities.containsKey(eid)){
             debug();
             return;
@@ -69,7 +81,7 @@ public class EntityManager {
         Class clazz = comp.getClass();
         //_entityidByComponentClass
         {
-            ArrayList<Long> entities;
+            ArrayList<Integer> entities;
             if (!_entityidByComponentClass.containsKey(clazz)) {
                 entities = new ArrayList<>();
                 _entityidByComponentClass.put(clazz, entities);
@@ -90,12 +102,13 @@ public class EntityManager {
                 entityCompoenentClasses.add(clazz);
             }
         }
+        change();
     }
 
 
     public ArrayList<Component> getComponentsOfClassForEntity(Class clazz, Entity e){
         ArrayList<Component>    result = new ArrayList<>();
-        long eid = e.eid();
+        int eid = e.eid();
         if(!_entityidByComponentClass.containsKey(clazz) || !_entities.containsKey(eid)){
             return result;
         }
@@ -103,8 +116,9 @@ public class EntityManager {
         ArrayList<Component>    entityComponents = _componentsByEntity.get(eid);
         ArrayList<Class>        entityComponentClasses = _componentClassByEntity.get(eid);
         for(int i=0; i<entityComponentClasses.size(); i++){
-            if(entityComponentClasses.get(i) == clazz){
-                result.add(entityComponents.get(i));
+            Component comp = entityComponents.get(i);
+            if(comp.getClass() == clazz){
+                result.add(comp);
             }
         }
         return result;
@@ -113,7 +127,7 @@ public class EntityManager {
 
     public void removeEntity(Entity e){
         //get the Classes of all entity components
-        long eid = e.eid();
+        int eid = e.eid();
 
         //clean up _componentClassByEntity
         if(_componentClassByEntity.containsKey(eid)){
@@ -121,7 +135,7 @@ public class EntityManager {
             for(int i = 0; i < entityComponentClasses.size(); i++){
                 if(_entityidByComponentClass.containsKey(entityComponentClasses.get(i))){
                     //get index of eid in class keyed hashmap...
-                    ArrayList<Long> eids = _entityidByComponentClass.get(entityComponentClasses.get(i));
+                    ArrayList<Integer> eids = _entityidByComponentClass.get(entityComponentClasses.get(i));
                     int index = eids.indexOf(eid);
                     if(index != -1){
                         eids.remove(index);
@@ -138,12 +152,13 @@ public class EntityManager {
         if(_entities.containsKey(eid)){
             _entities.remove(eid);
         }
+        change();
     }
 
     public ArrayList<Entity> getAllEntitiesPossesingCompoenetOfClass(Class clazz){
         ArrayList<Entity> result = new ArrayList<>();
         if(_entityidByComponentClass.containsKey(clazz)){
-            ArrayList<Long> eids = _entityidByComponentClass.get(clazz);
+            ArrayList<Integer> eids = _entityidByComponentClass.get(clazz);
             for(int i = 0; i < eids.size(); i++){
                 result.add(_entities.get(eids.get(i)));
             }
@@ -156,7 +171,7 @@ public class EntityManager {
         {
             System.out.println("");
             System.out.println("###_entities-###");
-            ArrayList<Long> l = new ArrayList<Long>(_entities.keySet());
+            ArrayList<Integer> l = new ArrayList<Integer>(_entities.keySet());
             for (int i = 0; i < l.size(); i++) {
                 System.out.println("   " + l.get(i));
                 Entity l2 = _entities.get(l.get(i));
@@ -170,7 +185,7 @@ public class EntityManager {
             ArrayList<Class> l = new ArrayList<Class>(_entityidByComponentClass.keySet());
             for (int i = 0; i < l.size(); i++) {
                 System.out.println("   " + l.get(i));
-                ArrayList<Long> l2 = _entityidByComponentClass.get(l.get(i));
+                ArrayList<Integer> l2 = _entityidByComponentClass.get(l.get(i));
                 for (int j = 0; j < l2.size(); j++) {
                     System.out.println("      " + l2.get(j));
 
@@ -181,7 +196,7 @@ public class EntityManager {
         {
             System.out.println("");
             System.out.println("###_componentsByEntity-###");
-            ArrayList<Long> l = new ArrayList<Long>(_componentsByEntity.keySet());
+            ArrayList<Integer> l = new ArrayList<Integer>(_componentsByEntity.keySet());
             for (int i = 0; i < l.size(); i++) {
                 System.out.println("   " + l.get(i));
                 ArrayList<Component> l2 = _componentsByEntity.get(l.get(i));
@@ -195,7 +210,7 @@ public class EntityManager {
         {
             System.out.println("");
             System.out.println("###_componentClassByEntity-###");
-            ArrayList<Long> l = new ArrayList<Long>(_componentClassByEntity.keySet());
+            ArrayList<Integer> l = new ArrayList<Integer>(_componentClassByEntity.keySet());
             for (int i = 0; i < l.size(); i++) {
                 System.out.println("   " + l.get(i));
                 ArrayList<Class> l2 = _componentClassByEntity.get(l.get(i));

@@ -10,20 +10,20 @@ import java.util.ArrayList;
 public class ComponentIdentifier {
     private String TAG = "ComponentIdentifier";
 
-    private ArrayList<Long> _ids = new ArrayList<>();
-    private long _lowestUnassignedID = Long.MIN_VALUE + 1;
-    public final long INVALID_ID = Long.MIN_VALUE;
+    private ArrayList<Integer> _ids = new ArrayList<>();
+    private int _lowestUnassignedID = Integer.MIN_VALUE + 1;
+    public final int INVALID_ID = Integer.MIN_VALUE;
 
     public ComponentIdentifier(){
 
     }
 
-    public long generateID(){
-        if(_lowestUnassignedID < Long.MAX_VALUE){
+    public int generateID(){
+        if(_lowestUnassignedID < Integer.MAX_VALUE){
             _ids.add(_lowestUnassignedID);
             return _lowestUnassignedID++;
         }
-        for(long l = Long.MIN_VALUE + 1; l < Long.MAX_VALUE; l++ ){
+        for(int l = Integer.MIN_VALUE + 1; l < Integer.MAX_VALUE; l++ ){
             if(!_ids.contains(l)){
                 return l;
             }
@@ -32,7 +32,7 @@ public class ComponentIdentifier {
         return INVALID_ID;
     }
 
-    public void removeID(Long id){
+    public void removeID(int id){
         if(_ids.contains(id)){
             _ids.remove(id);
         }

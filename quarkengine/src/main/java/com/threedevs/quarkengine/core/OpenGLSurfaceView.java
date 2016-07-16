@@ -23,19 +23,44 @@ public class OpenGLSurfaceView extends GLSurfaceView {
         // Create an OpenGL ES 2.0 context.
         setEGLContextClientVersion(2);
 
-        setEGLContextClientVersion(2);
         setEGLConfigChooser(8, 8, 8, 8, 16, 0);
+        setDebugFlags(DEBUG_CHECK_GL_ERROR | DEBUG_LOG_GL_CALLS);
 
         renderer = new OpenGLEngine(this);
+
 
         setRenderer(renderer);
 
         // old : TRANSLUCENT  possible fix for sigseg fault...
-        getHolder().setFormat(PixelFormat.TRANSPARENT);
-        setZOrderMediaOverlay(true);
+        //getHolder().setFormat(PixelFormat.TRANSPARENT);
+        //setZOrderMediaOverlay(true);
 
         // Render the view all the time...
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+
+    }
+
+    public OpenGLSurfaceView(Context context) {
+        super(context);
+
+        // Create an OpenGL ES 2.0 context.
+        setEGLContextClientVersion(2);
+
+        setEGLConfigChooser(8, 8, 8, 8, 16, 0);
+        setDebugFlags(DEBUG_CHECK_GL_ERROR | DEBUG_LOG_GL_CALLS);
+
+        renderer = new OpenGLEngine(this);
+
+        // Render the view all the time...
+        setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+
+        setRenderer(renderer);
+
+        // old : TRANSLUCENT  possible fix for sigseg fault...
+        //getHolder().setFormat(PixelFormat.TRANSPARENT);
+        //setZOrderMediaOverlay(true);
+
+
     }
 
 

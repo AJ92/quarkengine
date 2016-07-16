@@ -1,6 +1,7 @@
 package com.threedevs.quarkengine.systems;
 
 import android.opengl.GLES20;
+import android.util.Log;
 
 import com.threedevs.quarkengine.components.Component;
 import com.threedevs.quarkengine.components.Position;
@@ -22,6 +23,13 @@ import java.util.ArrayList;
 public class SpriteRenderSystem extends System {
 
     private OpenGLEngine _renderer = null;
+    private static final String TAG = "SpriteRenderSystem";
+    private int changes = 0;
+
+    private ArrayList<Entity> _sprite_entities = new ArrayList<>();
+    ArrayList<Component> _sprite_components = new ArrayList<>();
+    ArrayList<Component> _pos_components = new ArrayList<>();
+    ArrayList<Component> _rot_components = new ArrayList<>();
 
     public SpriteRenderSystem(EntityManager em) {
         super(em);
@@ -33,6 +41,7 @@ public class SpriteRenderSystem extends System {
 
     @Override
     public void update(float dt){
+        //Log.e(TAG, "update");
         if(_renderer == null){
             return;
         }
@@ -47,27 +56,49 @@ public class SpriteRenderSystem extends System {
         //todo ...
         float render_mat[] = new float[16];
 
-        ArrayList<Entity> sprite_entities = _entityManager.getAllEntitiesPossesingCompoenetOfClass(Sprite.class);
-        for(int i = 0; i < sprite_entities.size(); i++) {
-            ArrayList<Component> sprite_components = _entityManager.getComponentsOfClassForEntity(Sprite.class, sprite_entities.get(i));
-            ArrayList<Component> pos_components = _entityManager.getComponentsOfClassForEntity(Position.class, sprite_entities.get(i));
-            ArrayList<Component> rot_components = _entityManager.getComponentsOfClassForEntity(Rotation.class, sprite_entities.get(i));
+        if(changes != _entityManager.getChanges()) {
 
-            //draw single sprite object
+            Log.w(TAG, "updating sprite dataset...");
+            changes = _entityManager.getChanges();
 
-            if(sprite_components.size() < 1){
-                return;
-            }
-            if(pos_components.size() < 1){
-                return;
-            }
-            if(rot_components.size() < 1){
-                return;
-            }
+            _sprite_entities.clear();
+            _sprite_components.clear();
+            _pos_components.clear();
+            _rot_components.clear();
 
+            ArrayList<Entity> sprite_entities = _entityManager.getAllEntitiesPossesingCompoenetOfClass(Sprite.class);
+
+            //Log.e(TAG, "Sprite count: " + sprite_entities.size());
+
+            for (int i = 0; i < sprite_entities.size(); i++) {
+                ArrayList<Component> sprite_components = _entityManager.getComponentsOfClassForEntity(Sprite.class, sprite_entities.get(i));
+                ArrayList<Component> pos_components = _entityManager.getComponentsOfClassForEntity(Position.class, sprite_entities.get(i));
+                ArrayList<Component> rot_components = _entityManager.getComponentsOfClassForEntity(Rotation.class, sprite_entities.get(i));
+
+                //draw single sprite object
+
+                if (sprite_components.size() < 1) {
+                    return;
+                }
+                if (pos_components.size() < 1) {
+                    return;
+                }
+                if (rot_components.size() < 1) {
+                    return;
+                }
+
+                _sprite_entities.add(sprite_entities.get(i));
+                _sprite_components.add(sprite_components.get(0));
+                _pos_components.add(pos_components.get(0));
+                _rot_components.add(rot_components.get(0));
+
+            }
+        }
+
+        for(int i = 0; i < _sprite_entities.size(); i++) {
             Matrix4x4 mvp = new Matrix4x4();
 
-            Sprite spriteData = (Sprite)sprite_components.get(0);
+            Sprite spriteData = (Sprite)_sprite_components.get(i);
 
             int programmID = ((Shader)spriteData.getShader()).getProgramID();
             int textureID = ((Texture)spriteData.getTexture()).getTextureID();
@@ -104,19 +135,8 @@ public class SpriteRenderSystem extends System {
             // Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
             GLES20.glUniform1i(locTexture, 0);
 
-
-            // This multiplies the view matrix by the model matrix, and stores the result in the MVP matrix
-            // (which currently contains model * view).
-            //Matrix.multiplyMM(mMVPMatrix, 0, mViewMatrix, 0, mModelMatrix, 0);
-
-            // This multiplies the modelview matrix by the projection matrix, and stores the result in the MVP matrix
-            // (which now contains model * view * projection).
-            //Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mMVPMatrix, 0);
-
-
-            mvp.translate(((Position)pos_components.get(0)).toVector3());
+            mvp.translate(((Position)_pos_components.get(i)).toVector3());
             render_mat = mvp.getFloatArray(true);
-
 
             GLES20.glUniformMatrix4fv(locMVPMatrix, 1, false, render_mat, 0);
 
