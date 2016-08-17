@@ -36,12 +36,12 @@ public class CustomOpenGLSurfaceView extends OpenGLSurfaceView{
     public void onInit(){
         Log.d(TAG,"onInit()");
 
-        for(int i = 0; i < 200; i++) {
+        for(int i = 0; i < 400; i++) {
             Entity sprite = renderer.spriteFactory.createSprite("bitmaps/default.png");
             ArrayList<Component> positions = renderer.entityManager.getComponentsOfClassForEntity(Position.class, sprite);
             if(positions.size() > 0){
                 ((Position)positions.get(0)).setPos(
-                        randomInRange(-1.9f,1.9f),
+                        randomInRange(-1.9f,-1.8f),
                         randomInRange(-1.0f,1.0f),
                         -i / 80.0f);
             }

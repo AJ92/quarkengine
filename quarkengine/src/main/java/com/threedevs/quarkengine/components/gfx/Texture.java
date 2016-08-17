@@ -30,7 +30,7 @@ public class Texture extends Component {
 
     //real data of Texture Component:
     private String _texturePath = "";
-    private int _textureID = 0; //0 is openGL's default "black" texture...
+    public int _textureID = 0; //0 is openGL's default "black" texture...
     private Bitmap _bitmap = null;
 
 

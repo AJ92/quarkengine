@@ -2,6 +2,7 @@ package com.threedevs.quarkengine.systems;
 
 import android.opengl.GLES20;
 import android.util.Log;
+import android.util.TimingLogger;
 
 import com.threedevs.quarkengine.components.Component;
 import com.threedevs.quarkengine.components.Position;
@@ -17,6 +18,8 @@ import com.threedevs.quarkengine.math.Matrix.Matrix4x4;
 
 import java.util.ArrayList;
 
+
+
 /**
  * Created by AJ on 02.07.2016.
  */
@@ -25,6 +28,13 @@ public class SpriteRenderSystem extends System {
     private OpenGLEngine _renderer = null;
     private static final String TAG = "SpriteRenderSystem";
     private int changes = 0;
+    private int last_programID = -5;
+    private int last_textureID = -5;
+
+    private long times = 0;
+    private int sprites = 0;
+    private int texBinds = 0;
+    private int times_count = 0;
 
     private ArrayList<Entity> _sprite_entities = new ArrayList<>();
     ArrayList<Component> _sprite_components = new ArrayList<>();
@@ -41,7 +51,9 @@ public class SpriteRenderSystem extends System {
 
     @Override
     public void update(float dt){
-        //Log.e(TAG, "update");
+
+        long startTime = java.lang.System.nanoTime();
+
         if(_renderer == null){
             return;
         }
@@ -91,17 +103,17 @@ public class SpriteRenderSystem extends System {
                 _sprite_components.add(sprite_components.get(0));
                 _pos_components.add(pos_components.get(0));
                 _rot_components.add(rot_components.get(0));
-
             }
         }
 
+        Matrix4x4 mvp = new Matrix4x4();
         for(int i = 0; i < _sprite_entities.size(); i++) {
-            Matrix4x4 mvp = new Matrix4x4();
+
 
             Sprite spriteData = (Sprite)_sprite_components.get(i);
 
-            int programmID = ((Shader)spriteData.getShader()).getProgramID();
-            int textureID = ((Texture)spriteData.getTexture()).getTextureID();
+            int programmID = ((Shader)spriteData.getShader())._program_id;
+            int textureID = ((Texture)spriteData.getTexture())._textureID;
 
             int locPosition = GLES20.glGetAttribLocation(programmID, "a_Position");
             int locTexcoord = GLES20.glGetAttribLocation(programmID, "a_TexCoord");
@@ -109,34 +121,44 @@ public class SpriteRenderSystem extends System {
             int locTexture = GLES20.glGetUniformLocation(programmID, "tex_sampler");
             int locMVPMatrix = GLES20.glGetUniformLocation(programmID, "u_MVPMatrix");
 
-            GLES20.glUseProgram(programmID);
 
-            GLES20.glEnableVertexAttribArray(locPosition);
-            GLES20.glEnableVertexAttribArray(locTexcoord);
-            GLES20.glEnableVertexAttribArray(locNormal);
+            if(last_programID != programmID) {
+                GLES20.glUseProgram(programmID);
 
-            GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, geo.get_vertex_vbo());
-            //actually if once enabled we dont need to enable again.... but safety first xD
-            //GLES20.glEnableVertexAttribArray(locPositionSimple);
-            GLES20.glVertexAttribPointer(locPosition, 3, GLES20.GL_FLOAT, false, 0, 0);
+                GLES20.glEnableVertexAttribArray(locPosition);
+                GLES20.glEnableVertexAttribArray(locTexcoord);
+                GLES20.glEnableVertexAttribArray(locNormal);
 
-            GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, geo.get_texcoord_vbo());
-            //GLES20.glEnableVertexAttribArray(locTexCoordSimple);
-            GLES20.glVertexAttribPointer(locTexcoord, 3, GLES20.GL_FLOAT, false, 0, 0);
+                GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, geo._vbs[0]);
+                //actually if once enabled we dont need to enable again.... but safety first xD
+                //GLES20.glEnableVertexAttribArray(locPositionSimple);
+                GLES20.glVertexAttribPointer(locPosition, 3, GLES20.GL_FLOAT, false, 0, 0);
 
-            GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, geo.get_normal_vbo());
-            //GLES20.glEnableVertexAttribArray(locNormalSimple);
-            GLES20.glVertexAttribPointer(locNormal, 3, GLES20.GL_FLOAT, false, 0, 0);
+                GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, geo._vbs[1]);
+                //GLES20.glEnableVertexAttribArray(locTexCoordSimple);
+                GLES20.glVertexAttribPointer(locTexcoord, 3, GLES20.GL_FLOAT, false, 0, 0);
 
-            // Set the active texture unit to texture unit 0.
-            GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-            // Bind the texture to this unit.
-            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
-            // Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
-            GLES20.glUniform1i(locTexture, 0);
+                GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, geo._vbs[2]);
+                //GLES20.glEnableVertexAttribArray(locNormalSimple);
+                GLES20.glVertexAttribPointer(locNormal, 3, GLES20.GL_FLOAT, false, 0, 0);
 
-            mvp.translate(((Position)_pos_components.get(i)).toVector3());
-            render_mat = mvp.getFloatArray(true);
+                last_programID = programmID;
+            }
+
+            if(last_textureID != textureID) {
+                // Set the active texture unit to texture unit 0.
+                GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+                // Bind the texture to this unit.
+                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
+                // Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
+                GLES20.glUniform1i(locTexture, 0);
+                last_textureID = textureID;
+                texBinds += 1;
+            }
+
+            Position pos = (Position)_pos_components.get(i);
+            mvp.translate(pos._pos_x, pos._pos_y, pos._pos_z);
+            mvp.getFloatArray(render_mat, true);
 
             GLES20.glUniformMatrix4fv(locMVPMatrix, 1, false, render_mat, 0);
 
@@ -144,8 +166,23 @@ public class SpriteRenderSystem extends System {
                 return;
             }
 
-            GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, geo.get_triangle_count()*3);
+            GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, geo._triangle_count*3);
 
+            sprites += 1;
+        }
+
+        long estimatedTime = java.lang.System.nanoTime() - startTime;
+        times += estimatedTime;
+        times_count += 1;
+
+        if(times_count >= 60) {
+            Log.w(TAG, "update took ~ " + times / 60.0 / 1000000.0);
+            Log.w(TAG, "sprites drawn ~ " + sprites / 60.0 );
+            Log.w(TAG, "textures bound ~ " + texBinds / 60.0 );
+            times = 0;
+            sprites = 0;
+            texBinds = 0;
+            times_count = 0;
         }
     }
 

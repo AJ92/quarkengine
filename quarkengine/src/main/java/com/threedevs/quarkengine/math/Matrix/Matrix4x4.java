@@ -266,7 +266,7 @@ public class Matrix4x4 {
     }
 
     public void translate(double x, double y, double z){
-        set_to_identity();
+        //set_to_identity();
         // Translate slots.
         mat4[12] = x;
         mat4[13] = y;
@@ -275,7 +275,7 @@ public class Matrix4x4 {
     }
 
     public void scale(double sx, double sy, double sz){
-        set_to_identity();
+        //set_to_identity();
         // Scale slots.
         mat4[0]   = sx;
         mat4[5]   = sy;
@@ -1048,22 +1048,20 @@ void Matrix4x4::rotate(const Quaternion& quaternion)
                 );
     }
 
-    public float[] getFloatArray(boolean transpose){
-        float matrix[] = new float[16];
+    public void getFloatArray(float[] mat4x4, boolean transpose){
         //TRANSPOSE
         if(transpose) {
             for (int f = 0; f < 4; f++) {
                 for (int g = 0; g < 4; g++) {
-                    matrix[f * 4 + g] = (float) (mat4[f * 4 + g]);
+                    mat4x4[f * 4 + g] = (float) (mat4[f * 4 + g]);
                 }
             }
         }
         else{
             for (int f = 0; f < 16; f++) {
-                matrix[f] = (float) (mat4[f]);
+                mat4x4[f] = (float) (mat4[f]);
             }
         }
-        return matrix;
     }
 
 }

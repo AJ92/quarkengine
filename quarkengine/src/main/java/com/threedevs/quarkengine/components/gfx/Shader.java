@@ -29,7 +29,7 @@ public class Shader extends Component {
     private String _fragment_shader_source = "";
     private int _fragment_shader_id = -1;
     private String _error_string = "";
-    private int _program_id = -1;
+    public int _program_id = -1;
 
     private String TAG = "Shader";
 

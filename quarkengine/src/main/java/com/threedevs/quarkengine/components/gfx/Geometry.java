@@ -16,11 +16,11 @@ public class Geometry extends Component{
 
     private String TAG = "MESH";
 
-    int _bytes_per_float = 4;
+    private int _bytes_per_float = 4;
 
-    String _mesh_name;
+    public String _mesh_name;
 
-    int _triangle_count;
+    public int _triangle_count;
 
     //pointer to float arrays
     float _vertices[];
@@ -33,11 +33,11 @@ public class Geometry extends Component{
     public FloatBuffer _normal_buffer;
 
     //vertex buffer objects (_vertices, _texcoords and _normals)
-    int _vertex_vbo;
-    int _texcoord_vbo;
-    int _normal_vbo;
+    public int _vertex_vbo;
+    public int _texcoord_vbo;
+    public int _normal_vbo;
 
-    int _vbs[] = new int[3];
+    public int _vbs[] = new int[3];
 
     int _vertex_array_object;
 

@@ -7,9 +7,9 @@ import com.threedevs.quarkengine.math.Vector.Vector3;
  */
 public class Position extends Component {
 
-    private float _pos_x;
-    private float _pos_y;
-    private float _pos_z;
+    public float _pos_x;
+    public float _pos_y;
+    public float _pos_z;
 
     public Position(){
         _pos_x = 0.f;
