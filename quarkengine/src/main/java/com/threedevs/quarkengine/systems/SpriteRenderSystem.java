@@ -7,6 +7,7 @@ import android.util.TimingLogger;
 import com.threedevs.quarkengine.components.Component;
 import com.threedevs.quarkengine.components.Position;
 import com.threedevs.quarkengine.components.Rotation;
+import com.threedevs.quarkengine.components.Scale;
 import com.threedevs.quarkengine.components.Sprite;
 import com.threedevs.quarkengine.components.gfx.Geometry;
 import com.threedevs.quarkengine.components.gfx.Shader;
@@ -39,6 +40,7 @@ public class SpriteRenderSystem extends System {
     private ArrayList<Entity> _sprite_entities = new ArrayList<>();
     ArrayList<Component> _sprite_components = new ArrayList<>();
     ArrayList<Component> _pos_components = new ArrayList<>();
+    ArrayList<Component> _scale_components = new ArrayList<>();
     ArrayList<Component> _rot_components = new ArrayList<>();
 
     public SpriteRenderSystem(EntityManager em) {
@@ -76,6 +78,7 @@ public class SpriteRenderSystem extends System {
             _sprite_entities.clear();
             _sprite_components.clear();
             _pos_components.clear();
+            _scale_components.clear();
             _rot_components.clear();
 
             ArrayList<Entity> sprite_entities = _entityManager.getAllEntitiesPossesingCompoenetOfClass(Sprite.class);
@@ -85,6 +88,7 @@ public class SpriteRenderSystem extends System {
             for (int i = 0; i < sprite_entities.size(); i++) {
                 ArrayList<Component> sprite_components = _entityManager.getComponentsOfClassForEntity(Sprite.class, sprite_entities.get(i));
                 ArrayList<Component> pos_components = _entityManager.getComponentsOfClassForEntity(Position.class, sprite_entities.get(i));
+                ArrayList<Component> scale_components = _entityManager.getComponentsOfClassForEntity(Scale.class, sprite_entities.get(i));
                 ArrayList<Component> rot_components = _entityManager.getComponentsOfClassForEntity(Rotation.class, sprite_entities.get(i));
 
                 //draw single sprite object
@@ -95,6 +99,9 @@ public class SpriteRenderSystem extends System {
                 if (pos_components.size() < 1) {
                     return;
                 }
+                if (scale_components.size() < 1) {
+                    return;
+                }
                 if (rot_components.size() < 1) {
                     return;
                 }
@@ -102,6 +109,7 @@ public class SpriteRenderSystem extends System {
                 _sprite_entities.add(sprite_entities.get(i));
                 _sprite_components.add(sprite_components.get(0));
                 _pos_components.add(pos_components.get(0));
+                _scale_components.add(scale_components.get(0));
                 _rot_components.add(rot_components.get(0));
             }
         }
@@ -158,6 +166,9 @@ public class SpriteRenderSystem extends System {
 
             Position pos = (Position)_pos_components.get(i);
             mvp.translate(pos._pos_x, pos._pos_y, pos._pos_z);
+
+            Scale scale = (Scale)_scale_components.get(i);
+            mvp.scale(scale._scale_x, scale._scale_y, scale._scale_z);
             mvp.getFloatArray(render_mat, true);
 
             GLES20.glUniformMatrix4fv(locMVPMatrix, 1, false, render_mat, 0);

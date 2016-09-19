@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 
 import com.threedevs.quarkengine.components.Component;
 import com.threedevs.quarkengine.components.Position;
+import com.threedevs.quarkengine.components.Scale;
 import com.threedevs.quarkengine.core.OpenGLSurfaceView;
 import com.threedevs.quarkengine.entity.Entity;
 
@@ -36,17 +37,25 @@ public class CustomOpenGLSurfaceView extends OpenGLSurfaceView{
     public void onInit(){
         Log.d(TAG,"onInit()");
 
-        for(int i = 0; i < 400; i++) {
-            Entity sprite = renderer.spriteFactory.createSprite("bitmaps/default.png");
-            ArrayList<Component> positions = renderer.entityManager.getComponentsOfClassForEntity(Position.class, sprite);
-            if(positions.size() > 0){
-                ((Position)positions.get(0)).setPos(
-                        randomInRange(-1.9f,-1.8f),
-                        randomInRange(-1.0f,1.0f),
-                        -i / 80.0f);
-            }
-
+        Entity sprite = renderer.spriteFactory.createSprite("bitmaps/default.png");
+        ArrayList<Component> positions = renderer.entityManager.getComponentsOfClassForEntity(Position.class, sprite);
+        if(positions.size() > 0) {
+            ((Position) positions.get(0)).setPos(
+                    0.0f,
+                    0.0f,
+                    0.0f
+            );
         }
+
+        ArrayList<Component> scale = renderer.entityManager.getComponentsOfClassForEntity(Scale.class, sprite);
+        if(positions.size() > 0) {
+            ((Scale) scale.get(0)).setScale(
+                    1.0f,
+                    0.6f,
+                    1.0f
+            );
+        }
+
         Log.d(TAG,"onInit() done");
     }
 

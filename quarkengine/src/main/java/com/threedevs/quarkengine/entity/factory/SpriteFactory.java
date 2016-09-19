@@ -3,6 +3,7 @@ package com.threedevs.quarkengine.entity.factory;
 import com.threedevs.quarkengine.components.Meta;
 import com.threedevs.quarkengine.components.Position;
 import com.threedevs.quarkengine.components.Rotation;
+import com.threedevs.quarkengine.components.Scale;
 import com.threedevs.quarkengine.components.Sprite;
 import com.threedevs.quarkengine.components.gfx.Shader;
 import com.threedevs.quarkengine.components.gfx.Texture;
@@ -36,6 +37,7 @@ public class SpriteFactory {
         _em.addComponentToEntity(new Meta("sprite-" + e.eid()), e);
         _em.addComponentToEntity(new Rotation(), e);
         _em.addComponentToEntity(new Position(), e);
+        _em.addComponentToEntity(new Scale(), e);
         _em.addComponentToEntity(new Sprite(_renderer.getDefaultShader(), bitmap), e);
         return e;
     }
@@ -50,6 +52,7 @@ public class SpriteFactory {
         _em.addComponentToEntity(new Meta("sprite-" + e.eid()), e);
         _em.addComponentToEntity(new Rotation(), e);
         _em.addComponentToEntity(new Position(), e);
+        _em.addComponentToEntity(new Scale(), e);
         _em.addComponentToEntity(new Sprite(_renderer.getDefaultShader(), TextureCache.createTexture(bitmapPath)), e);
         return e;
     }
@@ -63,6 +66,7 @@ public class SpriteFactory {
         _em.addComponentToEntity(new Meta("sprite-" + e.eid()), e);
         _em.addComponentToEntity(new Rotation(), e);
         _em.addComponentToEntity(new Position(), e);
+        _em.addComponentToEntity(new Scale(), e);
         _em.addComponentToEntity(new Sprite(shader, bitmap), e);
         return e;
     }
@@ -77,6 +81,7 @@ public class SpriteFactory {
         _em.addComponentToEntity(new Meta("sprite-" + e.eid()), e);
         _em.addComponentToEntity(new Rotation(), e);
         _em.addComponentToEntity(new Position(), e);
+        _em.addComponentToEntity(new Scale(), e);
         _em.addComponentToEntity(new Sprite(shader, TextureCache.createTexture(bitmapPath)), e);
         return e;
     }

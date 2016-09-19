@@ -115,7 +115,7 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         //purple 148,0,211
-        GLES20.glClearColor(148.0f/256.0f, 0.0f/256.0f, 211.0f/256.0f, 0.0f);
+        GLES20.glClearColor(0.0f/256.0f, 0.0f/256.0f, 0.0f/256.0f, 0.0f);
         // GLES20.glEnable(GLES20.GL_CULL_FACE);
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
