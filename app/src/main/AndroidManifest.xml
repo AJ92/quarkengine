@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.threedevs.quark" >
+    package="xyz.sigsegowl.quark" >
 
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
 
     <application
-        android:name="com.threedevs.quarkengine.core.GlobalContext"
+        android:name="xyz.sigsegowl.quarkengine.core.GlobalContext"
         android:hardwareAccelerated="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
