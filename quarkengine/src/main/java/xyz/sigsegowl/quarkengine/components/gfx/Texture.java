@@ -21,9 +21,7 @@ import java.util.HashMap;
 
 public class Texture extends Component {
     //kind of a strange Component which manages itself and all other components...
-
     private static String TAG = "Texture";
-
 
     //Fallback solution...
     public final static String _defaultBitmapPath = "bitmaps/default.png";
@@ -44,9 +42,35 @@ public class Texture extends Component {
     }
 
     private boolean loadTexture(){
-        _bitmap = load_bitmap_rgba(_texturePath);
+        _bitmap = loadBitmapRgba(_texturePath);
         if(_bitmap == null){
             Log.e(TAG, "could not load bitmap");
+            //try the default texture...
+            _bitmap = loadBitmapRgba(_defaultBitmapPath);
+            if(_bitmap == null){
+                Log.e(TAG, "could not load bitmap");
+                return false;
+            }
+        }
+
+        if(!genGlTexture()){
+            Log.e(TAG, "could not generate a texture slot on gpu");
+            return false;
+        }
+
+        if(!loadGlTextureRgba(_textureID, _bitmap)){
+            Log.e(TAG, "could not upload bitmap to gpu");
+            return false;
+        }
+
+        _bitmap.recycle();
+
+        return true;
+    }
+
+    public boolean genGlTexture(){
+        if(_textureID > 0){
+            Log.e(TAG, "texture slot could not be generated (there is already one!)");
             return false;
         }
 
@@ -58,16 +82,27 @@ public class Texture extends Component {
             return false;
         }
         _textureID = gl_map[0];
-
-        if(!load_gl_texture_rgba(_textureID, _bitmap)){
-            Log.e(TAG, "could not upload bitmap to gpu");
-            return false;
-        }
         return true;
     }
 
-    public boolean load_gl_texture_rgba(int slot, Bitmap image){
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, slot);
+    public boolean deleteGlTexture(){
+        if(_textureID <= 0){
+            return false;
+        }
+
+        int gl_map[] = new int[1];
+        gl_map[0] = _textureID;
+        GLES20.glDeleteTextures(1, gl_map, 0);
+        _textureID = 0;
+        return true;
+    }
+
+    public boolean loadGlTextureRgba(int textureID, Bitmap image){
+        if(textureID <= 0){
+            return false;
+        }
+
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
 
         /* WORKS (but no mipmaps and no filtering)
         GLES20.glTexParameteri( GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
@@ -104,21 +139,18 @@ public class Texture extends Component {
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
 
-
-        image.recycle();
-
         // Unbind from the texture.
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
 
-        if(slot == 0){
+        if(textureID == 0){
             //looks like we couldn't load the texture and GLES gave us back the default black tex...
-            Log.e(TAG,"tex slot " + slot + " could not be _loaded...");
+            Log.e(TAG,"tex slot " + textureID + " could not be _loaded...");
             return false;
         }
         return true;
     }
 
-    private Bitmap load_bitmap_rgba(String path){
+    private Bitmap loadBitmapRgba(String path){
         if(path == null){
             return null;
         }
