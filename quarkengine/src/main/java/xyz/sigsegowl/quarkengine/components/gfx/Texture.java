@@ -13,6 +13,7 @@ import xyz.sigsegowl.quarkengine.core.GlobalContext;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.util.HashMap;
 
 /**
@@ -135,6 +136,39 @@ public class Texture extends Component {
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
         */
+        //pixelated
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
+
+        // Unbind from the texture.
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
+
+        if(textureID == 0){
+            //looks like we couldn't load the texture and GLES gave us back the default black tex...
+            Log.e(TAG,"tex slot " + textureID + " could not be _loaded...");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean loadGlTextureRgba(int textureID, byte[] image, int width, int height){
+        if(textureID <= 0){
+            return false;
+        }
+
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
+
+        // Load the byte array into the bound texture.
+
+        ByteBuffer buffer = ByteBuffer.allocateDirect(4 * width * height);
+        buffer.put(image);
+        buffer.position(0);
+
+        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, width, height, 0,
+                GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, buffer);
+
+        //no mipmaps
+
         //pixelated
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);

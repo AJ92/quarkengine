@@ -40,6 +40,8 @@ public class OpenGLSurfaceView extends GLSurfaceView {
 
     }
 
+
+
     public OpenGLSurfaceView(Context context) {
         super(context);
 
