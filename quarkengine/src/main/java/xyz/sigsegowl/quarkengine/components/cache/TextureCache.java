@@ -2,7 +2,8 @@ package xyz.sigsegowl.quarkengine.components.cache;
 
 import android.util.Log;
 
-import xyz.sigsegowl.quarkengine.components.gfx.Texture;
+import xyz.sigsegowl.quarkengine.components.gfx.ITexture;
+import xyz.sigsegowl.quarkengine.components.gfx.Texture2D;
 
 import java.util.HashMap;
 
@@ -19,45 +20,45 @@ public class TextureCache {
 
     //holds all texture paths to identify if a texture was already initialized...
     private static HashMap<String, Integer>    _cachekeyByTexturePath = new HashMap<>();
-    private static HashMap<Integer, Texture>   _textureObjectByCachekey = new HashMap<>();
+    private static HashMap<Integer, ITexture>   _textureObjectByCachekey = new HashMap<>();
 
 
     //if the _cachekeyByTexturePath hashmap contains the texturePath
     //then the texture is cached and can be used as is...
-    public static boolean isTextureCached(String bitmapPath){
+    public static boolean isTexture2DCached(String bitmapPath){
         if(_cachekeyByTexturePath.containsKey(bitmapPath)){
             return true;
         }
         return false;
     }
 
-    //returns a valid Texture object reference or null if not cached yet...
-    private static Texture loadCachedTexture(String bitmapPath){
+    //returns a valid Texture2D object reference or null if not cached yet...
+    private static ITexture loadCachedTexture2D(String bitmapPath){
         //get texturePathID
         Integer cachekey = _cachekeyByTexturePath.get(bitmapPath);
         if(cachekey == null){
             return null;
         }
 
-        Texture cached_texture_ref = _textureObjectByCachekey.get(cachekey);
-        return cached_texture_ref;
+        ITexture cached_texture_2D_ref = _textureObjectByCachekey.get(cachekey);
+        return cached_texture_2D_ref;
     }
 
-    private static Texture getDefaultTexture(){
-        Texture cached_tex_ref = null;
-        if(isTextureCached(Texture._defaultBitmapPath)) {
-            cached_tex_ref = loadCachedTexture(Texture._defaultBitmapPath);
+    private static ITexture getDefaultTexture2D(){
+        ITexture cached_tex_ref = null;
+        if(isTexture2DCached(Texture2D._defaultBitmapPath)) {
+            cached_tex_ref = loadCachedTexture2D(Texture2D._defaultBitmapPath);
             if(cached_tex_ref == null){
                 //FATAL ERROR
                 Log.e(TAG, "could not load cached default texture!!!");
             }
             return cached_tex_ref;
         }
-        Texture uncached_tex_ref = new Texture(Texture._defaultBitmapPath);
+        ITexture uncached_tex_ref = new Texture2D(Texture2D._defaultBitmapPath);
         if(uncached_tex_ref.isCreatedSuccessfully()){
             //add to cache hashmaps...
             int id = cid.generateID();
-            _cachekeyByTexturePath.put(Texture._defaultBitmapPath, id);
+            _cachekeyByTexturePath.put(Texture2D._defaultBitmapPath, id);
             _textureObjectByCachekey.put(id, uncached_tex_ref);
 
             return uncached_tex_ref;
@@ -69,28 +70,28 @@ public class TextureCache {
 
     //trys to get a cached ref to an already existing texture
     //if not existing it creates a new one
-    public static Texture createTexture(String bitmapPath){
+    public static ITexture createTexture2D(String bitmapPath){
 
         //check for cache
-        if(isTextureCached(bitmapPath)){
-            Texture cached_tex_ref = loadCachedTexture(bitmapPath);
+        if(isTexture2DCached(bitmapPath)){
+            ITexture cached_tex_ref = loadCachedTexture2D(bitmapPath);
             if(cached_tex_ref == null){
                 Log.e(TAG, "could not load cached texture!");
-                cached_tex_ref = getDefaultTexture();
+                cached_tex_ref = getDefaultTexture2D();
             }
             return cached_tex_ref;
         }
 
         //load new because not cached yet...
-        Texture uncached_tex_ref = new Texture(bitmapPath);
+        ITexture uncached_tex_ref = new Texture2D(bitmapPath);
         if(uncached_tex_ref.isCreatedSuccessfully()){
             //add to cache hashmaps...
             int id = cid.generateID();
-            _cachekeyByTexturePath.put(uncached_tex_ref.getTexturePath(), id);
+            _cachekeyByTexturePath.put(bitmapPath, id);
             _textureObjectByCachekey.put(id, uncached_tex_ref);
             return uncached_tex_ref;
         }
 
-        return getDefaultTexture();
+        return getDefaultTexture2D();
     }
 }

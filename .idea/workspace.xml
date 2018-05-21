@@ -10,9 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b58c8a39-30b9-4cf5-967e-2e526a0e7bb0" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/quarkengine/src/main/assets/shaders/simpleTexExtOES.fsh" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/quarkengine/src/main/assets/shaders/simpleTexExtOES.vsh" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/Texture2D.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/TextureExtOES.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/Texture.java" afterPath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/Texture.java" />
-      <change beforePath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/core/OpenGLSurfaceView.java" afterPath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/core/OpenGLSurfaceView.java" />
+      <change beforePath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/Sprite.java" afterPath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/Sprite.java" />
+      <change beforePath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/cache/TextureCache.java" afterPath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/cache/TextureCache.java" />
+      <change beforePath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/Texture.java" afterPath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/ITexture.java" />
+      <change beforePath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/core/OpenGLEngine.java" afterPath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/core/OpenGLEngine.java" />
+      <change beforePath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/entity/factory/SpriteFactory.java" afterPath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/entity/factory/SpriteFactory.java" />
+      <change beforePath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/systems/SpriteRenderSystem.java" afterPath="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/systems/SpriteRenderSystem.java" />
     </list>
     <ignored path="Quark.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -84,41 +92,119 @@
       <file leaf-file-name="SpriteFactory.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/entity/factory/SpriteFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="60" column="35" lean-forward="false" selection-start-line="60" selection-start-column="35" selection-end-line="60" selection-end-column="35" />
+            <state relative-caret-position="-95">
+              <caret line="53" column="74" lean-forward="false" selection-start-line="53" selection-start-column="74" selection-end-line="53" selection-end-column="74" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Texture.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/Texture.java">
+      <file leaf-file-name="SpriteRenderSystem.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/systems/SpriteRenderSystem.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="183">
-              <caret line="161" column="0" lean-forward="false" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+              <caret line="29" column="38" lean-forward="false" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CustomOpenGLSurfaceView.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/xyz/sigsegowl/quark/CustomOpenGLSurfaceView.java">
+      <file leaf-file-name="ITexture.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/ITexture.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="52" column="13" lean-forward="false" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
+            <state relative-caret-position="75">
+              <caret line="18" column="31" lean-forward="false" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#5194#5195#0" expanded="true" />
+                <element signature="e#5256#5257#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <file leaf-file-name="OpenGLEngine.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/core/OpenGLEngine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="71" lean-forward="false" selection-start-line="16" selection-start-column="71" selection-end-line="16" selection-end-column="71" />
+            <state relative-caret-position="179">
+              <caret line="642" column="8" lean-forward="false" selection-start-line="642" selection-start-column="8" selection-end-line="647" selection-end-column="9" />
+              <folding>
+                <element signature="e#27054#27055#0" expanded="true" />
+                <element signature="e#27090#27091#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TextureCache.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/cache/TextureCache.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="385">
+              <caret line="91" column="36" lean-forward="false" selection-start-line="91" selection-start-column="36" selection-end-line="91" selection-end-column="36" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Shader.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/Shader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1005">
+              <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Sprite.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/Sprite.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="42" column="9" lean-forward="false" selection-start-line="40" selection-start-column="39" selection-end-line="42" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Texture2D.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/Texture2D.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+              <folding>
+                <element signature="e#8277#8278#0" expanded="true" />
+                <element signature="e#8320#8321#0" expanded="true" />
+                <element signature="e#8357#8358#0" expanded="true" />
+                <element signature="e#8392#8393#0" expanded="true" />
+                <element signature="e#8425#8426#0" expanded="true" />
+                <element signature="e#8458#8459#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="simpleTexExtOES.fsh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quarkengine/src/main/assets/shaders/simpleTexExtOES.fsh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="1" lean-forward="false" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TextureExtOES.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/TextureExtOES.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+              <folding>
+                <element signature="e#2592#2593#0" expanded="true" />
+                <element signature="e#2675#2676#0" expanded="true" />
+                <element signature="e#2720#2721#0" expanded="true" />
+                <element signature="e#2763#2764#0" expanded="true" />
+                <element signature="e#2795#2796#0" expanded="true" />
+                <element signature="e#2828#2829#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -131,6 +217,13 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>last_textureID</find>
+      <find>textureID</find>
+      <find>shader_simple</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -3036,7 +3129,16 @@
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/quarkengine/build.gradle" />
         <option value="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/core/OpenGLSurfaceView.java" />
+        <option value="$PROJECT_DIR$/quarkengine/src/main/assets/shaders/simpleTexExtOES.vsh" />
+        <option value="$PROJECT_DIR$/quarkengine/src/main/assets/shaders/simpleTexExtOES.fsh" />
         <option value="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/Texture.java" />
+        <option value="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/Texture2D.java" />
+        <option value="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/cache/TextureCache.java" />
+        <option value="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/ITexture.java" />
+        <option value="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/systems/SpriteRenderSystem.java" />
+        <option value="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/TextureExtOES.java" />
+        <option value="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/entity/factory/SpriteFactory.java" />
+        <option value="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/Sprite.java" />
       </list>
     </option>
   </component>
@@ -3060,10 +3162,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="ProjectPane" />
+      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -3087,7 +3187,56 @@
               <item name="quarkengine" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="quarkengine" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Quark" type="1abcf292:AndroidViewProjectNode" />
+              <item name="quarkengine" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="quarkengine" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="cache" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Quark" type="1abcf292:AndroidViewProjectNode" />
+              <item name="quarkengine" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="quarkengine" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="gfx" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Quark" type="1abcf292:AndroidViewProjectNode" />
+              <item name="quarkengine" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="quarkengine" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Quark" type="1abcf292:AndroidViewProjectNode" />
+              <item name="quarkengine" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="quarkengine" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="factory" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Quark" type="1abcf292:AndroidViewProjectNode" />
+              <item name="quarkengine" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="quarkengine" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="systems" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Quark" type="1abcf292:AndroidViewProjectNode" />
+              <item name="quarkengine" type="feadf853:AndroidModuleNode" />
+              <item name="assets" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="Quark" type="1abcf292:AndroidViewProjectNode" />
+              <item name="quarkengine" type="feadf853:AndroidModuleNode" />
+              <item name="assets" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="shaders" type="cbb59c9e:AndroidPsiDirectoryNode" />
             </path>
             <path>
               <item name="Quark" type="1abcf292:AndroidViewProjectNode" />
@@ -3097,6 +3246,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3114,7 +3265,15 @@
     <property name="GpuMonitor.paused" value="false" />
     <property name="android.project.structure.last.selected" value="quarkengine" />
     <property name="android.project.structure.proportion" value="0.15" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1526743053037" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1526924831637" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="xyz.sigsegowl.quarkengine.components.gfx" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/quarkengine/src/main/assets/shaders" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -3697,7 +3856,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1600" height="873" extended-state="7" />
-    <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32880434" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -3705,17 +3863,18 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35952064" sideWeight="0.5025707" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3275401" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17780748" sideWeight="0.509009" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17780748" sideWeight="0.490991" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32880434" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328877" sideWeight="0.494852" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1975547" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23262031" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32947233" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3275401" sideWeight="0.497426" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947233" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -3732,7 +3891,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28700128" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32880434" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -3761,19 +3919,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/captures/com.threedevs.quark_2016.07.03_17.37.trace" />
-    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/com/threedevs/quarkengine/util/qhashmap/QHashMap.java" />
-    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/com/threedevs/quarkengine/components/cache/ComponentIdentifier.java" />
-    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/com/threedevs/quarkengine/components/cache/TextureCache.java" />
-    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/com/threedevs/quarkengine/components/Component.java" />
-    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/com/threedevs/quarkengine/components/Meta.java" />
-    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/com/threedevs/quarkengine/components/Rotation.java" />
-    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/com/threedevs/quarkengine/components/Sprite.java" />
-    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/com/threedevs/quarkengine/systems/System.java" />
-    <entry file="file://$PROJECT_DIR$/quarkengine/src/test/java/com/threedevs/quarkengine/EntityManagerUnitTest.java" />
-    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/com/threedevs/quarkengine/entity/Entity.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/threedevs/quark/MainActivity.java" />
-    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/com/threedevs/quarkengine/core/OpenGLEngine.java" />
     <entry file="file://$PROJECT_DIR$/captures/com.threedevs.quark_2016.07.16_12.13.trace" />
     <entry file="file://$PROJECT_DIR$/captures/com.threedevs.quark_2016.07.16_13.02.trace" />
     <entry file="file://$PROJECT_DIR$/captures/com.threedevs.quark_2016.07.16_14.47.trace" />
@@ -3843,23 +3988,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/core/OpenGLEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/quarkengine/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/core/GlobalContext.java">
@@ -3878,21 +4015,20 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="67" />
           <folding />
         </state>
       </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/xyz/sigsegowl/quark/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3928,28 +4064,157 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/assets/bitmaps/default.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/xyz/sigsegowl/quark/CustomOpenGLSurfaceView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="52" column="13" lean-forward="false" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
+        <state relative-caret-position="375">
+          <caret line="40" column="12" lean-forward="false" selection-start-line="40" selection-start-column="12" selection-end-line="45" selection-end-column="36" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/Position.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/Rotation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/assets/shaders/simple.vsh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="4" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="11" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/assets/shaders/simple.fsh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="52" lean-forward="false" selection-start-line="6" selection-start-column="45" selection-end-line="6" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/assets/shaders/simpleTexExtOES.vsh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="1" lean-forward="false" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/assets/shaders/simpleTexExtOES.fsh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="1" lean-forward="false" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/ITexture.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="18" column="31" lean-forward="false" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+          <folding>
+            <element signature="e#5194#5195#0" expanded="true" />
+            <element signature="e#5256#5257#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/core/OpenGLEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="642" column="8" lean-forward="false" selection-start-line="642" selection-start-column="8" selection-end-line="647" selection-end-column="9" />
+          <folding>
+            <element signature="e#27054#27055#0" expanded="true" />
+            <element signature="e#27090#27091#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/Texture2D.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding>
+            <element signature="e#8277#8278#0" expanded="true" />
+            <element signature="e#8320#8321#0" expanded="true" />
+            <element signature="e#8357#8358#0" expanded="true" />
+            <element signature="e#8392#8393#0" expanded="true" />
+            <element signature="e#8425#8426#0" expanded="true" />
+            <element signature="e#8458#8459#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/TextureExtOES.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding>
+            <element signature="e#2592#2593#0" expanded="true" />
+            <element signature="e#2675#2676#0" expanded="true" />
+            <element signature="e#2720#2721#0" expanded="true" />
+            <element signature="e#2763#2764#0" expanded="true" />
+            <element signature="e#2795#2796#0" expanded="true" />
+            <element signature="e#2828#2829#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/cache/TextureCache.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="91" column="36" lean-forward="false" selection-start-line="91" selection-start-column="36" selection-end-line="91" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/Shader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1005">
+          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/systems/SpriteRenderSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="29" column="38" lean-forward="false" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/entity/factory/SpriteFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="60" column="35" lean-forward="false" selection-start-line="60" selection-start-column="35" selection-end-line="60" selection-end-column="35" />
+        <state relative-caret-position="-95">
+          <caret line="53" column="74" lean-forward="false" selection-start-line="53" selection-start-column="74" selection-end-line="53" selection-end-column="74" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/Texture.java">
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/Sprite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="161" column="0" lean-forward="false" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+        <state relative-caret-position="360">
+          <caret line="42" column="9" lean-forward="false" selection-start-line="40" selection-start-column="39" selection-end-line="42" selection-end-column="9" />
           <folding />
         </state>
       </provider>

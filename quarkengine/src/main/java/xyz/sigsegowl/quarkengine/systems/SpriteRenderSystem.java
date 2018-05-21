@@ -2,15 +2,14 @@ package xyz.sigsegowl.quarkengine.systems;
 
 import android.opengl.GLES20;
 import android.util.Log;
-import android.util.TimingLogger;
 
 import xyz.sigsegowl.quarkengine.components.Component;
 import xyz.sigsegowl.quarkengine.components.Position;
 import xyz.sigsegowl.quarkengine.components.Rotation;
 import xyz.sigsegowl.quarkengine.components.Sprite;
 import xyz.sigsegowl.quarkengine.components.gfx.Geometry;
+import xyz.sigsegowl.quarkengine.components.gfx.ITexture;
 import xyz.sigsegowl.quarkengine.components.gfx.Shader;
-import xyz.sigsegowl.quarkengine.components.gfx.Texture;
 import xyz.sigsegowl.quarkengine.core.OpenGLEngine;
 import xyz.sigsegowl.quarkengine.entity.Entity;
 import xyz.sigsegowl.quarkengine.entity.EntityManager;
@@ -28,8 +27,8 @@ public class SpriteRenderSystem extends System {
     private OpenGLEngine _renderer = null;
     private static final String TAG = "SpriteRenderSystem";
     private int changes = 0;
-    private int last_programID = -5;
-    private int last_textureID = -5;
+    private Shader last_shader = null;
+    private ITexture last_texture = null;
 
     private long times = 0;
     private int sprites = 0;
@@ -112,18 +111,18 @@ public class SpriteRenderSystem extends System {
 
             Sprite spriteData = (Sprite)_sprite_components.get(i);
 
-            int programmID = ((Shader)spriteData.getShader())._program_id;
-            int textureID = ((Texture)spriteData.getTexture())._textureID;
+            Shader shader = (Shader)spriteData.getShader();
+            ITexture texture = (ITexture)spriteData.getTexture();
 
-            int locPosition = GLES20.glGetAttribLocation(programmID, "a_Position");
-            int locTexcoord = GLES20.glGetAttribLocation(programmID, "a_TexCoord");
-            int locNormal = GLES20.glGetAttribLocation(programmID, "a_Normal");
-            int locTexture = GLES20.glGetUniformLocation(programmID, "tex_sampler");
-            int locMVPMatrix = GLES20.glGetUniformLocation(programmID, "u_MVPMatrix");
+            int locPosition = GLES20.glGetAttribLocation(shader._program_id, "a_Position");
+            int locTexcoord = GLES20.glGetAttribLocation(shader._program_id, "a_TexCoord");
+            int locNormal = GLES20.glGetAttribLocation(shader._program_id, "a_Normal");
+            int locTexture = GLES20.glGetUniformLocation(shader._program_id, "tex_sampler");
+            int locMVPMatrix = GLES20.glGetUniformLocation(shader._program_id, "u_MVPMatrix");
 
 
-            if(last_programID != programmID) {
-                GLES20.glUseProgram(programmID);
+            if(last_shader != shader) {
+                GLES20.glUseProgram(shader._program_id);
 
                 GLES20.glEnableVertexAttribArray(locPosition);
                 GLES20.glEnableVertexAttribArray(locTexcoord);
@@ -142,17 +141,17 @@ public class SpriteRenderSystem extends System {
                 //GLES20.glEnableVertexAttribArray(locNormalSimple);
                 GLES20.glVertexAttribPointer(locNormal, 3, GLES20.GL_FLOAT, false, 0, 0);
 
-                last_programID = programmID;
+                last_shader = shader;
             }
 
-            if(last_textureID != textureID) {
+            if(last_texture != texture) {
                 // Set the active texture unit to texture unit 0.
                 GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
                 // Bind the texture to this unit.
-                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
+                texture.bind();
                 // Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
                 GLES20.glUniform1i(locTexture, 0);
-                last_textureID = textureID;
+                last_texture = texture;
                 texBinds += 1;
             }
 
@@ -184,6 +183,8 @@ public class SpriteRenderSystem extends System {
             texBinds = 0;
             times_count = 0;
         }
+
+        last_texture = null; // reset last tex
     }
 
 

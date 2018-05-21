@@ -8,7 +8,7 @@ import android.util.Log;
 import xyz.sigsegowl.quarkengine.components.Camera;
 import xyz.sigsegowl.quarkengine.components.gfx.Geometry;
 import xyz.sigsegowl.quarkengine.components.gfx.Shader;
-import xyz.sigsegowl.quarkengine.components.gfx.Texture;
+import xyz.sigsegowl.quarkengine.components.gfx.Texture2D;
 import xyz.sigsegowl.quarkengine.entity.EntityManager;
 import xyz.sigsegowl.quarkengine.entity.factory.SpriteFactory;
 import xyz.sigsegowl.quarkengine.math.Matrix.Matrix4x4;
@@ -37,7 +37,7 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
 
     //default resources and assets
     Shader shader_simple = null;
-    Texture texture_simple = null;
+    Texture2D texture_2D_simple = null;
     Geometry sprite_geometry = null;
 
     boolean FATAL_ERROR = false;
@@ -514,7 +514,7 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
         default_cam = cam;
 
 
-        texture_simple = new Texture("bitmaps/default.png");
+        texture_2D_simple = new Texture2D("bitmaps/default.png");
 
         float vertices[] = {
                 1.0f, -1.0f, 0.0f,  //triangle 1

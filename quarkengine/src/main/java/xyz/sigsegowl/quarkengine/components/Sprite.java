@@ -1,11 +1,12 @@
 package xyz.sigsegowl.quarkengine.components;
 
+import xyz.sigsegowl.quarkengine.components.gfx.ITexture;
 import xyz.sigsegowl.quarkengine.components.gfx.Shader;
-import xyz.sigsegowl.quarkengine.components.gfx.Texture;
+import xyz.sigsegowl.quarkengine.components.gfx.Texture2D;
 
 /**
  * Sprite is a composition of gfx components
- * Contains a Texture and Shader Component
+ * Contains a Texture2D and Shader Component
  * In future it might contains multiple Textures
  * for animations and or multi-texture-shaders
  * Created by AJ on 02.07.2016.
@@ -15,10 +16,10 @@ public class Sprite extends Component {
     private Component _texture  = null;
 
     public Sprite(Component shader, Component texture){
-        if(shader.getClass() != Shader.class){
+        if(!(shader instanceof Shader)){
             return;
         }
-        if(texture.getClass() != Texture.class){
+        if(!(texture instanceof ITexture)){
             return;
         }
         _shader = shader;
@@ -37,7 +38,7 @@ public class Sprite extends Component {
         if(shader == null){
             return;
         }
-        if(shader.getClass() != Shader.class){
+        if(!(shader instanceof Shader)){
             return;
         }
         _shader = shader;
@@ -46,7 +47,7 @@ public class Sprite extends Component {
         if(texture == null){
             return;
         }
-        if(texture.getClass() != Texture.class){
+        if(!(texture instanceof ITexture)){
             return;
         }
         _texture = texture;

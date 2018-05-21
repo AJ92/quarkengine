@@ -20,14 +20,14 @@ import java.util.HashMap;
  * Created by AJ on 06.06.2016.
  */
 
-public class Texture extends Component {
+public class Texture2D extends ITexture {
     //kind of a strange Component which manages itself and all other components...
-    private static String TAG = "Texture";
+    private static String TAG = "Texture2D";
 
     //Fallback solution...
     public final static String _defaultBitmapPath = "bitmaps/default.png";
 
-    //real data of Texture Component:
+    //real data of Texture2D Component:
     private String _texturePath = "";
     public int _textureID = 0; //0 is openGL's default "black" texture...
     private Bitmap _bitmap = null;
@@ -35,7 +35,7 @@ public class Texture extends Component {
 
     private boolean _createdSuccessfully = false;
 
-    public Texture(String texturePath){
+    public Texture2D(String texturePath){
         _texturePath = texturePath;
         if(loadTexture()){
             _createdSuccessfully = true;
@@ -184,6 +184,39 @@ public class Texture extends Component {
         return true;
     }
 
+    public boolean loadGlTextureRgb(int textureID, byte[] image, int width, int height){
+        if(textureID <= 0){
+            return false;
+        }
+
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureID);
+
+        // Load the byte array into the bound texture.
+
+        ByteBuffer buffer = ByteBuffer.allocateDirect(3 * width * height);
+        buffer.put(image);
+        buffer.position(0);
+
+        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGB, width, height, 0,
+                GLES20.GL_RGB, GLES20.GL_UNSIGNED_BYTE, buffer);
+
+        //no mipmaps
+
+        //pixelated
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
+
+        // Unbind from the texture.
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
+
+        if(textureID == 0){
+            //looks like we couldn't load the texture and GLES gave us back the default black tex...
+            Log.e(TAG,"tex slot " + textureID + " could not be _loaded...");
+            return false;
+        }
+        return true;
+    }
+
     private Bitmap loadBitmapRgba(String path){
         if(path == null){
             return null;
@@ -219,7 +252,7 @@ public class Texture extends Component {
         return _texturePath;
     }
 
-    public int getTextureID(){
+    public int get_textureID(){
         return _textureID;
     }
 }

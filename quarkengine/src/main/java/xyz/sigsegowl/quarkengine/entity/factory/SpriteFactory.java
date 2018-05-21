@@ -4,8 +4,9 @@ import xyz.sigsegowl.quarkengine.components.Meta;
 import xyz.sigsegowl.quarkengine.components.Position;
 import xyz.sigsegowl.quarkengine.components.Rotation;
 import xyz.sigsegowl.quarkengine.components.Sprite;
+import xyz.sigsegowl.quarkengine.components.gfx.ITexture;
 import xyz.sigsegowl.quarkengine.components.gfx.Shader;
-import xyz.sigsegowl.quarkengine.components.gfx.Texture;
+import xyz.sigsegowl.quarkengine.components.gfx.Texture2D;
 import xyz.sigsegowl.quarkengine.components.cache.TextureCache;
 import xyz.sigsegowl.quarkengine.core.OpenGLEngine;
 import xyz.sigsegowl.quarkengine.entity.Entity;
@@ -29,9 +30,9 @@ public class SpriteFactory {
 
     /*
     Creates a sprite entity with a default shader for bitmaps
-    using the bitmap Texture provided.
+    using the bitmap Texture2D provided.
      */
-    public Entity createSprite(Texture bitmap){
+    public Entity createSprite(ITexture bitmap){
         Entity e = _em.createEntity();
         _em.addComponentToEntity(new Meta("sprite-" + e.eid()), e);
         _em.addComponentToEntity(new Rotation(), e);
@@ -42,7 +43,7 @@ public class SpriteFactory {
 
     /*
     Creates a sprite entity with a default shader for bitmaps
-    using path to load a bitmap Texture which might be an instance
+    using path to load a bitmap Texture2D which might be an instance
     if already loaded one.
      */
     public Entity createSprite(String bitmapPath){
@@ -50,15 +51,15 @@ public class SpriteFactory {
         _em.addComponentToEntity(new Meta("sprite-" + e.eid()), e);
         _em.addComponentToEntity(new Rotation(), e);
         _em.addComponentToEntity(new Position(), e);
-        _em.addComponentToEntity(new Sprite(_renderer.getDefaultShader(), TextureCache.createTexture(bitmapPath)), e);
+        _em.addComponentToEntity(new Sprite(_renderer.getDefaultShader(), TextureCache.createTexture2D(bitmapPath)), e);
         return e;
     }
 
     /*
     Creates a sprite entity with a custom shader for bitmaps
-    using the bitmap Texture provided.
+    using the bitmap Texture2D provided.
      */
-    public Entity createSprite(Texture bitmap, Shader shader){
+    public Entity createSprite(ITexture bitmap, Shader shader){
         Entity e = _em.createEntity();
         _em.addComponentToEntity(new Meta("sprite-" + e.eid()), e);
         _em.addComponentToEntity(new Rotation(), e);
@@ -69,7 +70,7 @@ public class SpriteFactory {
 
     /*
     Creates a sprite entity with a custom shader for bitmaps
-    using path to load a bitmap Texture which might be an instance
+    using path to load a bitmap Texture2D which might be an instance
     if already loaded one.
      */
     public Entity createSprite(String bitmapPath, Shader shader){
@@ -77,7 +78,7 @@ public class SpriteFactory {
         _em.addComponentToEntity(new Meta("sprite-" + e.eid()), e);
         _em.addComponentToEntity(new Rotation(), e);
         _em.addComponentToEntity(new Position(), e);
-        _em.addComponentToEntity(new Sprite(shader, TextureCache.createTexture(bitmapPath)), e);
+        _em.addComponentToEntity(new Sprite(shader, TextureCache.createTexture2D(bitmapPath)), e);
         return e;
     }
 
