@@ -9,12 +9,12 @@ This project is focused on creating a highly customizable graphics engine with a
 
 This is a complete example of rendering a fullscreen sprite:
 ```java
-package com.threedevs.quark;
+package xyz.sigsegowl.quark;
 
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.threedevs.quarkengine.core.OpenGLSurfaceView;
+import xyz.sigsegowl.quarkengine.core.OpenGLSurfaceView;
 
 public class CustomOpenGLSurfaceView extends OpenGLSurfaceView{
     public CustomOpenGLSurfaceView(Context context, AttributeSet attrs) {

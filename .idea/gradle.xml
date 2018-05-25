@@ -13,6 +13,10 @@
             <option value="$PROJECT_DIR$/quarkengine" />
           </set>
         </option>
+<<<<<<< HEAD
+=======
+        <option name="resolveModulePerSourceSet" value="false" />
+>>>>>>> 2372a0975e244d2d980bbd80c51f5d349a2ba055
       </GradleProjectSettings>
     </option>
   </component>

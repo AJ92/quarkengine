@@ -11,10 +11,10 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main"
-    tools:context="com.threedevs.quark.MainActivity"
+    tools:context="xyz.sigsegowl.quark.MainActivity"
 >
 
-    <com.threedevs.quark.CustomOpenGLSurfaceView
+    <xyz.sigsegowl.quark.CustomOpenGLSurfaceView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/surfaceView2"
