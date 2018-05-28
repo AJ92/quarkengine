@@ -51,7 +51,7 @@ public class CustomOpenGLSurfaceView extends OpenGLSurfaceView{
         }
 
         ArrayList<Component> scale = renderer.entityManager.getComponentsOfClassForEntity(Scale.class, sprite);
-        if(positions.size() > 0) {
+        if(scale.size() > 0) {
             ((Scale) scale.get(0)).setScale(
                     1.0f,
                     0.6f,
@@ -60,11 +60,11 @@ public class CustomOpenGLSurfaceView extends OpenGLSurfaceView{
         }
 
         ArrayList<Component> rotation = renderer.entityManager.getComponentsOfClassForEntity(Rotation.class, sprite);
-        if(positions.size() > 0) {
+        if(rotation.size() > 0) {
             ((Rotation) rotation.get(0)).quaternion = Quaternion.from_euler_angles(
                     0.0,
                     0.0,
-                    15.0
+                    90.0
             );
         }
 

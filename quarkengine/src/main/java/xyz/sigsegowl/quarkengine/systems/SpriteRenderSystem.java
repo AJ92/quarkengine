@@ -163,12 +163,12 @@ public class SpriteRenderSystem extends System {
                 texBinds += 1;
             }
 
+            Scale scale = (Scale)_scale_components.get(i);
+            mvp.scale(scale._scale_x, scale._scale_y, scale._scale_z);
             Rotation rot = (Rotation)_rot_components.get(i);
             mvp = mvp.rotate(rot.quaternion);
             Position pos = (Position)_pos_components.get(i);
             mvp.translate(pos._pos_x, pos._pos_y, pos._pos_z);
-            Scale scale = (Scale)_scale_components.get(i);
-            mvp.scale(scale._scale_x, scale._scale_y, scale._scale_z);
             mvp.getFloatArray(render_mat, true);
 
             GLES20.glUniformMatrix4fv(locMVPMatrix, 1, false, render_mat, 0);
