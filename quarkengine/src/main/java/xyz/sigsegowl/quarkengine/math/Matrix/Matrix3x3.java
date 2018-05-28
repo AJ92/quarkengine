@@ -31,7 +31,7 @@ public class Matrix3x3 {
     private int flagBits;
 
     //dummy constructor, don't do anything
-    private Matrix3x3(int value){
+    public Matrix3x3(int value){
 
     }
 

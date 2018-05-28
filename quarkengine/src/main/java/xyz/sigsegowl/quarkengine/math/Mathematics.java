@@ -17,6 +17,7 @@ public class Mathematics {
 
 
     public static double M_PI       = 3.14159265358979323846;
+    public static double M_PI_2		= 1.57079632679489661923;
 
     // Pre-calculated value of PI / 180.
     public static double kPI180     = 0.017453;

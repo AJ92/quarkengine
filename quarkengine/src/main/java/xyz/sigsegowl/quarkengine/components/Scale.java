@@ -1,6 +1,7 @@
-package com.threedevs.quarkengine.components;
+package xyz.sigsegowl.quarkengine.components;
 
-import com.threedevs.quarkengine.math.Vector.Vector3;
+import xyz.sigsegowl.quarkengine.math.Matrix.Matrix4x4;
+import xyz.sigsegowl.quarkengine.math.Vector.Vector3;
 
 /**
  * Created by AJ on 19.09.2016.
@@ -56,5 +57,11 @@ public class Scale extends Component {
 
     public Vector3 toVector3(){
         return new Vector3(_scale_x, _scale_y, _scale_z);
+    }
+
+    public Matrix4x4 toMatrix4x4(){
+        Matrix4x4 mat = new Matrix4x4();
+        mat.scale(_scale_x, _scale_y, _scale_z);
+        return mat;
     }
 }

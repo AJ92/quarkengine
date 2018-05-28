@@ -4,6 +4,7 @@ package xyz.sigsegowl.quarkengine.entity.factory;
 import xyz.sigsegowl.quarkengine.components.Meta;
 import xyz.sigsegowl.quarkengine.components.Position;
 import xyz.sigsegowl.quarkengine.components.Rotation;
+import xyz.sigsegowl.quarkengine.components.Scale;
 import xyz.sigsegowl.quarkengine.components.Sprite;
 import xyz.sigsegowl.quarkengine.components.gfx.ITexture;
 import xyz.sigsegowl.quarkengine.components.gfx.Shader;
@@ -53,6 +54,7 @@ public class SpriteFactory {
         _em.addComponentToEntity(new Meta("sprite-" + e.eid()), e);
         _em.addComponentToEntity(new Rotation(), e);
         _em.addComponentToEntity(new Position(), e);
+        _em.addComponentToEntity(new Scale(), e);
         _em.addComponentToEntity(new Sprite(_renderer.getDefaultShader(), TextureCache.createTexture2D(bitmapPath)), e);
         return e;
     }
@@ -81,6 +83,7 @@ public class SpriteFactory {
         _em.addComponentToEntity(new Meta("sprite-" + e.eid()), e);
         _em.addComponentToEntity(new Rotation(), e);
         _em.addComponentToEntity(new Position(), e);
+        _em.addComponentToEntity(new Scale(), e);
         _em.addComponentToEntity(new Sprite(shader, TextureCache.createTexture2D(bitmapPath)), e);
         return e;
     }

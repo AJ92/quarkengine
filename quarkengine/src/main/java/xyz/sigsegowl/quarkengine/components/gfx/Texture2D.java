@@ -29,7 +29,6 @@ public class Texture2D extends ITexture {
 
     //real data of Texture2D Component:
     private String _texturePath = "";
-    public int _textureID = 0; //0 is openGL's default "black" texture...
     private Bitmap _bitmap = null;
 
 

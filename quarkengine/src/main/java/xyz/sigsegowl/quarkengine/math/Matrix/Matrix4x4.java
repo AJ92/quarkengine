@@ -1,6 +1,7 @@
 package xyz.sigsegowl.quarkengine.math.Matrix;
 
 import xyz.sigsegowl.quarkengine.math.Mathematics;
+import xyz.sigsegowl.quarkengine.math.Vector.Quaternion;
 import xyz.sigsegowl.quarkengine.math.Vector.Vector3;
 
 /**
@@ -85,7 +86,7 @@ public class Matrix4x4 {
     private double mat4[] = new double[16];
 
     //binary composite type of the matrix... see Mathematics.java
-    private int flagBits;
+    protected int flagBits;
 
     //dummy constructor, don't do anything
     private Matrix4x4(int value){
@@ -598,54 +599,46 @@ public class Matrix4x4 {
     }
 
 
-    //from Cpp quaternion is a vector with x,y,z, scalar (w)
-/*!
-    Multiples this matrix by another that rotates coordinates according
-    to a specified \a quaternion.  The \a quaternion is assumed to have
-    been normalized.
 
-    \sa scale(), translate(), QQuaternion
-*/
+    public Matrix4x4 rotate(Quaternion quaternion)
+    {
+        // Algorithm from:
+        // http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q54
+        Matrix4x4 m = new Matrix4x4(1);
+        double xx = quaternion.x() * quaternion.x();
+        double xy = quaternion.x() * quaternion.y();
+        double xz = quaternion.x() * quaternion.z();
+        double xw = quaternion.x() * quaternion.scalar();
+        double yy = quaternion.y() * quaternion.y();
+        double yz = quaternion.y() * quaternion.z();
+        double yw = quaternion.y() * quaternion.scalar();
+        double zz = quaternion.z() * quaternion.z();
+        double zw = quaternion.z() * quaternion.scalar();
+        m.set_value(0,0, 1.0f - 2 * (yy + zz));
+        m.set_value(1,0, 2 * (xy - zw));
+        m.set_value(2,0, 2 * (xz + yw));
+        m.set_value(3,0, 0.0f);
+        m.set_value(0,1, 2 * (xy + zw));
+        m.set_value(1,1, 1.0f - 2 * (xx + zz));
+        m.set_value(2,1, 2 * (yz - xw));
+        m.set_value(3,1, 0.0f);
+        m.set_value(0,2, 2 * (xz - yw));
+        m.set_value(1,2, 2 * (yz + xw));
+        m.set_value(2,2, 1.0f - 2 * (xx + yy));
+        m.set_value(3,2, 0.0f);
+        m.set_value(0,3, 0.0f);
+        m.set_value(1,3, 0.0f);
+        m.set_value(2,3, 0.0f);
+        m.set_value(3,3, 1.0f);
+        int flags = flagBits;
+        Matrix4x4 rot = this.multiply(m);
+        if (flags != Mathematics.mat_type_Identity)
+            rot.flagBits = flags | Mathematics.mat_type_Rotation;
+        else
+            rot.flagBits = Mathematics.mat_type_Rotation;
+        return rot;
+    }
 
-/*
-void Matrix4x4::rotate(const Quaternion& quaternion)
-{
-    // Algorithm from:
-    // http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q54
-    Matrix4x4 m(1);
-    double xx = quaternion.x() * quaternion.x();
-    double xy = quaternion.x() * quaternion.y();
-    double xz = quaternion.x() * quaternion.z();
-    double xw = quaternion.x() * quaternion.scalar();
-    double yy = quaternion.y() * quaternion.y();
-    double yz = quaternion.y() * quaternion.z();
-    double yw = quaternion.y() * quaternion.scalar();
-    double zz = quaternion.z() * quaternion.z();
-    double zw = quaternion.z() * quaternion.scalar();
-    m(0,0) = 1.0f - 2 * (yy + zz);
-    m(1,0) =        2 * (xy - zw);
-    m(2,0) =        2 * (xz + yw);
-    m(3,0) = 0.0f;
-    m(0,1) =        2 * (xy + zw);
-    m(1,1) = 1.0f - 2 * (xx + zz);
-    m(2,1) =        2 * (yz - xw);
-    m(3,1) = 0.0f;
-    m(0,2) =        2 * (xz - yw);
-    m(1,2) =        2 * (yz + xw);
-    m(2,2) = 1.0f - 2 * (xx + yy);
-    m(3,2) = 0.0f;
-    m(0,3) = 0.0f;
-    m(1,3) = 0.0f;
-    m(2,3) = 0.0f;
-    m(3,3) = 1.0f;
-    int flags = flagBits;
-    *this *= m;
-    if (flags != Identity)
-        flagBits = flags | Rotation;
-    else
-        flagBits = Rotation;
-}
-*/
 
     public Matrix4x4 ortho(double left, double right, double bottom, double top, double nearPlane, double farPlane){
         // Bail out if the projection volume is zero-sized.

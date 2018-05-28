@@ -6,6 +6,7 @@ import android.util.Log;
 import xyz.sigsegowl.quarkengine.components.Component;
 import xyz.sigsegowl.quarkengine.components.Position;
 import xyz.sigsegowl.quarkengine.components.Rotation;
+import xyz.sigsegowl.quarkengine.components.Scale;
 import xyz.sigsegowl.quarkengine.components.Sprite;
 import xyz.sigsegowl.quarkengine.components.gfx.Geometry;
 import xyz.sigsegowl.quarkengine.components.gfx.ITexture;
@@ -162,9 +163,10 @@ public class SpriteRenderSystem extends System {
                 texBinds += 1;
             }
 
+            Rotation rot = (Rotation)_rot_components.get(i);
+            mvp = mvp.rotate(rot.quaternion);
             Position pos = (Position)_pos_components.get(i);
             mvp.translate(pos._pos_x, pos._pos_y, pos._pos_z);
-
             Scale scale = (Scale)_scale_components.get(i);
             mvp.scale(scale._scale_x, scale._scale_y, scale._scale_z);
             mvp.getFloatArray(render_mat, true);

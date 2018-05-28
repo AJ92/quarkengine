@@ -1,5 +1,6 @@
 package xyz.sigsegowl.quarkengine.components;
 
+import xyz.sigsegowl.quarkengine.math.Matrix.Matrix4x4;
 import xyz.sigsegowl.quarkengine.math.Vector.Vector3;
 
 /**
@@ -55,5 +56,11 @@ public class Position extends Component {
 
     public Vector3 toVector3(){
         return new Vector3(_pos_x, _pos_y, _pos_z);
+    }
+
+    public Matrix4x4 toMatrix4x4(){
+        Matrix4x4 mat = new Matrix4x4();
+        mat.translate(_pos_x, _pos_y, _pos_z);
+        return mat;
     }
 }

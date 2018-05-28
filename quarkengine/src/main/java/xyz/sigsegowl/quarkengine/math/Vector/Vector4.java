@@ -8,7 +8,7 @@ import xyz.sigsegowl.quarkengine.math.Mathematics;
  */
 public class Vector4 {
 
-    private double vec4[] = new double[4];
+    protected double vec4[] = new double[4];
 
     //private constructor to create an object without constructing any values...
     //java sets the values to zero anyways...
@@ -16,6 +16,20 @@ public class Vector4 {
 
     public Vector4() {
         set_to_null();
+    }
+
+    public Vector4(Vector3 vec, double w) {
+        this.vec4[0] = vec.x();
+        this.vec4[1] = vec.y();
+        this.vec4[2] = vec.z();
+        this.vec4[3] = w;
+    }
+
+    public Vector4(Quaternion quat) {
+        this.vec4[0] = quat.x();
+        this.vec4[1] = quat.y();
+        this.vec4[2] = quat.z();
+        this.vec4[3] = quat.w();
     }
 
     public Vector4(double x, double y, double z, double w) {

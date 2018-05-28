@@ -3,9 +3,8 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="LOCAL" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="C:\Users\AJ\AppData\Local\Android\android-studio_2.2P2\gradle\gradle-2.10" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -13,10 +12,7 @@
             <option value="$PROJECT_DIR$/quarkengine" />
           </set>
         </option>
-<<<<<<< HEAD
-=======
         <option name="resolveModulePerSourceSet" value="false" />
->>>>>>> 2372a0975e244d2d980bbd80c51f5d349a2ba055
       </GradleProjectSettings>
     </option>
   </component>

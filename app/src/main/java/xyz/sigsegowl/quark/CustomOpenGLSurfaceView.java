@@ -9,8 +9,11 @@ import android.view.MotionEvent;
 
 import xyz.sigsegowl.quarkengine.components.Component;
 import xyz.sigsegowl.quarkengine.components.Position;
+import xyz.sigsegowl.quarkengine.components.Rotation;
+import xyz.sigsegowl.quarkengine.components.Scale;
 import xyz.sigsegowl.quarkengine.core.OpenGLSurfaceView;
 import xyz.sigsegowl.quarkengine.entity.Entity;
+import xyz.sigsegowl.quarkengine.math.Vector.Quaternion;
 
 import java.util.ArrayList;
 
@@ -53,6 +56,15 @@ public class CustomOpenGLSurfaceView extends OpenGLSurfaceView{
                     1.0f,
                     0.6f,
                     1.0f
+            );
+        }
+
+        ArrayList<Component> rotation = renderer.entityManager.getComponentsOfClassForEntity(Rotation.class, sprite);
+        if(positions.size() > 0) {
+            ((Rotation) rotation.get(0)).quaternion = Quaternion.from_euler_angles(
+                    0.0,
+                    0.0,
+                    15.0
             );
         }
 
