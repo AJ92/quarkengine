@@ -57,11 +57,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="OpenGLSurfaceView.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="OpenGLSurfaceView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/core/OpenGLSurfaceView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="34" column="29" lean-forward="false" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+            <state relative-caret-position="476">
+              <caret line="40" column="45" lean-forward="false" selection-start-line="40" selection-start-column="45" selection-end-line="40" selection-end-column="45" />
               <folding>
                 <element signature="e#1264#1265#0" expanded="true" />
                 <element signature="e#1295#1296#0" expanded="true" />
@@ -75,12 +75,22 @@
       <file leaf-file-name="OpenGLEngine.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/core/OpenGLEngine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="99" column="30" lean-forward="false" selection-start-line="99" selection-start-column="30" selection-end-line="99" selection-end-column="30" />
+            <state relative-caret-position="391">
+              <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
               <folding>
                 <element signature="e#3095#3096#0" expanded="true" />
                 <element signature="e#3127#3128#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SpriteRenderSystem.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/systems/SpriteRenderSystem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="195" column="28" lean-forward="true" selection-start-line="195" selection-start-column="28" selection-end-line="195" selection-end-column="28" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -3135,12 +3145,12 @@
         <option value="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/entity/factory/SpriteFactory.java" />
         <option value="$PROJECT_DIR$/quarkengine/src/main/assets/shaders/simple.fsh" />
         <option value="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/gfx/Texture2D.java" />
-        <option value="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/systems/SpriteRenderSystem.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/xyz/sigsegowl/quark/CustomOpenGLSurfaceView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/xyz/sigsegowl/quark/MainActivity.java" />
         <option value="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/components/cache/TextureCache.java" />
         <option value="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/core/OpenGLEngine.java" />
         <option value="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/core/OpenGLSurfaceView.java" />
+        <option value="$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/systems/SpriteRenderSystem.java" />
       </list>
     </option>
   </component>
@@ -3652,16 +3662,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/systems/SpriteRenderSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="170" column="62" lean-forward="false" selection-start-line="170" selection-start-column="62" selection-end-line="170" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/appcompat-v7/26.1.0/2b34456c30d6b6e5db5fa3e8fa02f6cebd5531fd/appcompat-v7-26.1.0-sources.jar!/android/support/v7/app/AppCompatActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="223">
@@ -3681,14 +3681,6 @@
             <element signature="e#2925#2926#0" expanded="false" />
             <element signature="e#2958#2959#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-26/android.jar!/android/opengl/GLSurfaceView.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="20" column="13" lean-forward="false" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3729,16 +3721,37 @@
         <state relative-caret-position="357">
           <caret line="42" column="52" lean-forward="false" selection-start-line="42" selection-start-column="52" selection-end-line="42" selection-end-column="52" />
           <folding>
-            <element signature="e#823#824#0" expanded="true" />
-            <element signature="e#860#861#0" expanded="true" />
+            <element signature="e#823#824#0" expanded="false" />
+            <element signature="e#860#861#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-26/android.jar!/android/opengl/GLSurfaceView.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="23" column="28" lean-forward="false" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/core/OpenGLSurfaceView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="40" column="45" lean-forward="false" selection-start-line="40" selection-start-column="45" selection-end-line="40" selection-end-column="45" />
+          <folding>
+            <element signature="e#1264#1265#0" expanded="true" />
+            <element signature="e#1295#1296#0" expanded="true" />
+            <element signature="e#1338#1339#0" expanded="true" />
+            <element signature="e#1370#1371#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/core/OpenGLEngine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="99" column="30" lean-forward="false" selection-start-line="99" selection-start-column="30" selection-end-line="99" selection-end-column="30" />
+        <state relative-caret-position="391">
+          <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
           <folding>
             <element signature="e#3095#3096#0" expanded="true" />
             <element signature="e#3127#3128#0" expanded="true" />
@@ -3746,16 +3759,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/core/OpenGLSurfaceView.java">
+    <entry file="file://$PROJECT_DIR$/quarkengine/src/main/java/xyz/sigsegowl/quarkengine/systems/SpriteRenderSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="34" column="29" lean-forward="false" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
-          <folding>
-            <element signature="e#1264#1265#0" expanded="true" />
-            <element signature="e#1295#1296#0" expanded="true" />
-            <element signature="e#1338#1339#0" expanded="true" />
-            <element signature="e#1370#1371#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="391">
+          <caret line="195" column="28" lean-forward="true" selection-start-line="195" selection-start-column="28" selection-end-line="195" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>

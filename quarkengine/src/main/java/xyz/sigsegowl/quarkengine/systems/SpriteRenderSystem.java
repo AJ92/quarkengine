@@ -187,9 +187,9 @@ public class SpriteRenderSystem extends System {
         times_count += 1;
 
         if(times_count >= 60) {
-            Log.w(TAG, "update took ~ " + times / 60.0 / 1000000.0);
-            Log.w(TAG, "sprites drawn ~ " + sprites / 60.0 );
-            Log.w(TAG, "textures bound ~ " + texBinds / 60.0 );
+            Log.w(TAG, String.format("update took ~ %.4f ns", times / 60.0 / 1000000000.0));
+            Log.w(TAG, String.format("sprites drawn ~ %.2f", sprites / 60.0));
+            Log.w(TAG, String.format("textures bound ~ %.2f", texBinds / 60.0));
             times = 0;
             sprites = 0;
             texBinds = 0;
