@@ -22,19 +22,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
-
         setContentView(R.layout.activity_main);
 
+        customOpenGLSurfaceView = (CustomOpenGLSurfaceView) findViewById(R.id.surfaceView2);
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-        /*
-        customOpenGLSurfaceView = new CustomOpenGLSurfaceView(GlobalContext.getAppContext());
-        setContentView(customOpenGLSurfaceView);
-        */
+
+        //customOpenGLSurfaceView = new CustomOpenGLSurfaceView(GlobalContext.getAppContext());
+        //setContentView(customOpenGLSurfaceView);
 
         /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -71,5 +68,15 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onPause(){
+        customOpenGLSurfaceView.onPause();
+        super.onPause();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        customOpenGLSurfaceView.onResume();
+    }
 }

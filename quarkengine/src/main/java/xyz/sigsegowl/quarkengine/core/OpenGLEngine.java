@@ -6,6 +6,7 @@ import android.util.Log;
 
 
 import xyz.sigsegowl.quarkengine.components.Camera;
+import xyz.sigsegowl.quarkengine.components.cache.TextureCache;
 import xyz.sigsegowl.quarkengine.components.gfx.Geometry;
 import xyz.sigsegowl.quarkengine.components.gfx.Shader;
 import xyz.sigsegowl.quarkengine.components.gfx.Texture2D;
@@ -27,13 +28,11 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
     private final String TAG = "OpenGLEngine";
 
     //Entity manager
-    public final EntityManager entityManager = new EntityManager();
-
+    public EntityManager entityManager;
     //factories for entities
-    public final SpriteFactory spriteFactory = SpriteFactory.initWithRendererAndEntityManager(this, entityManager);
-
+    public SpriteFactory spriteFactory;
     //systems
-    public final SpriteRenderSystem spriteRenderSystem = new SpriteRenderSystem(entityManager);
+    public SpriteRenderSystem spriteRenderSystem;
 
     //default resources and assets
     Shader shader_simple = null;
@@ -105,6 +104,8 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
     }
 
 
+    //TODO: create some kind of destructor to clean up gpu resource...
+
 
     /**
      * Called when a surface is created.
@@ -114,11 +115,21 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
      */
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        Log.d(TAG, "onSurfaceCreated");
+
+        TextureCache.clear();
+
+        //Entity manager
+        entityManager = new EntityManager();
+        //factories for entities
+        spriteFactory = SpriteFactory.initWithRendererAndEntityManager(this, entityManager);
+        //systems
+        spriteRenderSystem = new SpriteRenderSystem(entityManager);
+
         //purple 148,0,211
         GLES20.glClearColor(0.0f/256.0f, 0.0f/256.0f, 0.0f/256.0f, 0.0f);
         // GLES20.glEnable(GLES20.GL_CULL_FACE);
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-
 
         final float eyeX = 0.0f;
         final float eyeY = 0.0f;

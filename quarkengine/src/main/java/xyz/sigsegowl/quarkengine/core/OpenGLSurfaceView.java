@@ -14,55 +14,43 @@ import android.view.MotionEvent;
 
 public class OpenGLSurfaceView extends GLSurfaceView {
 
-    protected final OpenGLEngine renderer;
+    protected OpenGLEngine renderer;
     private String TAG = "OpenGLSurfaceView";
 
     public OpenGLSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        initEngine();
+    }
 
+    public OpenGLSurfaceView(Context context) {
+        super(context);
+        initEngine();
+    }
+
+    public void initEngine(){
         // Create an OpenGL ES 2.0 context.
         setEGLContextClientVersion(2);
-
         setEGLConfigChooser(8, 8, 8, 8, 16, 0);
         setDebugFlags(DEBUG_CHECK_GL_ERROR | DEBUG_LOG_GL_CALLS);
-
         renderer = new OpenGLEngine(this);
-
-
         setRenderer(renderer);
-
         // old : TRANSLUCENT  possible fix for sigseg fault...
         //getHolder().setFormat(PixelFormat.TRANSPARENT);
         //setZOrderMediaOverlay(true);
-
         // Render the view all the time...
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
-
     }
 
 
 
-    public OpenGLSurfaceView(Context context) {
-        super(context);
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
 
-        // Create an OpenGL ES 2.0 context.
-        setEGLContextClientVersion(2);
-
-        setEGLConfigChooser(8, 8, 8, 8, 16, 0);
-        setDebugFlags(DEBUG_CHECK_GL_ERROR | DEBUG_LOG_GL_CALLS);
-
-        renderer = new OpenGLEngine(this);
-
-        // Render the view all the time...
-        setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
-
-        setRenderer(renderer);
-
-        // old : TRANSLUCENT  possible fix for sigseg fault...
-        //getHolder().setFormat(PixelFormat.TRANSPARENT);
-        //setZOrderMediaOverlay(true);
-
-
+    @Override
+    public void onResume(){
+        super.onResume();
     }
 
 

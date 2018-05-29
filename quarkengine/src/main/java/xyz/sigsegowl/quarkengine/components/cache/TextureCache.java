@@ -22,6 +22,10 @@ public class TextureCache {
     private static HashMap<String, Integer>    _cachekeyByTexturePath = new HashMap<>();
     private static HashMap<Integer, ITexture>   _textureObjectByCachekey = new HashMap<>();
 
+    public static void clear(){
+        _cachekeyByTexturePath.clear();
+        _textureObjectByCachekey.clear();
+    }
 
     //if the _cachekeyByTexturePath hashmap contains the texturePath
     //then the texture is cached and can be used as is...
