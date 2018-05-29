@@ -42,7 +42,6 @@ public class OpenGLSurfaceView extends GLSurfaceView {
     }
 
 
-
     @Override
     public void onPause(){
         super.onPause();
