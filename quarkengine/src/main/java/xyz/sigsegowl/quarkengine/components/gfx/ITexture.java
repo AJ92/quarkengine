@@ -26,6 +26,9 @@ public class ITexture extends Component {
     private boolean _createdSuccessfully = false;
     public int _textureType = GLES20.GL_TEXTURE_2D;
 
+    public int width = 0;
+    public int height = 0;
+
     public ITexture() {
 
     }
@@ -92,23 +95,27 @@ public class ITexture extends Component {
         GLES20.glTexParameteri(_textureType, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_REPEAT);
     }
 
-    public boolean loadGlTextureRgba(int textureID, Bitmap image){
-        if(textureID <= 0){
+    public boolean loadGlTextureRgba(Bitmap image){
+        if(_textureID <= 0){
             return false;
         }
 
         // Load the bitmap into the bound texture.
         GLUtils.texImage2D(_textureType, 0, image, 0);
-        if(textureID == 0){
+        if(_textureID == 0){
             //looks like we couldn't load the texture and GLES gave us back the default black tex...
-            Log.e(TAG,"tex slot " + textureID + " could not be _loaded...");
+            Log.e(TAG,"tex slot " + _textureID + " could not be _loaded...");
             return false;
         }
+
+        width = image.getWidth();
+        height = image.getHeight();
+
         return true;
     }
 
-    public boolean loadGlTextureRgba(int textureID, byte[] image, int width, int height){
-        if(textureID <= 0){
+    public boolean loadGlTextureRgba(byte[] image, int width, int height){
+        if(_textureID <= 0){
             return false;
         }
 
@@ -120,16 +127,20 @@ public class ITexture extends Component {
         GLES20.glTexImage2D(_textureType, 0, GLES20.GL_RGBA, width, height, 0,
                 GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, buffer);
 
-        if(textureID == 0){
+        if(_textureID == 0){
             //looks like we couldn't load the texture and GLES gave us back the default black tex...
-            Log.e(TAG,"tex slot " + textureID + " could not be _loaded...");
+            Log.e(TAG,"tex slot " + _textureID + " could not be _loaded...");
             return false;
         }
+
+        this.width = width;
+        this.height = height;
+
         return true;
     }
 
-    public boolean loadGlTextureRgb(int textureID, byte[] image, int width, int height){
-        if(textureID <= 0){
+    public boolean loadGlTextureRgb(byte[] image, int width, int height){
+        if(_textureID <= 0){
             return false;
         }
         // Load the byte array into the bound texture.
@@ -137,52 +148,71 @@ public class ITexture extends Component {
         buffer.put(image);
         buffer.position(0);
 
-        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGB, width, height, 0,
+        GLES20.glTexImage2D(_textureType, 0, GLES20.GL_RGB, width, height, 0,
                 GLES20.GL_RGB, GLES20.GL_UNSIGNED_BYTE, buffer);
 
-        if(textureID == 0){
+        if(_textureID == 0){
             //looks like we couldn't load the texture and GLES gave us back the default black tex...
-            Log.e(TAG,"tex slot " + textureID + " could not be _loaded...");
+            Log.e(TAG,"tex slot " + _textureID + " could not be _loaded...");
             return false;
         }
+
+        this.width = width;
+        this.height = height;
+
+
         return true;
     }
+
+    public boolean loadGlTextureRgbaEmpty(int width, int height){
+        if(_textureID <= 0){
+            return false;
+        }
+
+        GLES20.glTexImage2D(_textureType, 0, GLES20.GL_RGBA, width, height, 0,
+                GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, null);
+
+        if(_textureID == 0){
+            //looks like we couldn't load the texture and GLES gave us back the default black tex...
+            Log.e(TAG,"tex slot " + _textureID + " could not be _loaded...");
+            return false;
+        }
+
+        this.width = width;
+        this.height = height;
+
+        return true;
+    }
+
+    public boolean loadGlTextureRgbEmpty(int width, int height){
+        if(_textureID <= 0){
+            return false;
+        }
+
+        GLES20.glTexImage2D(_textureType, 0, GLES20.GL_RGB, width, height, 0,
+                GLES20.GL_RGB, GLES20.GL_UNSIGNED_BYTE, null);
+
+        if(_textureID == 0){
+            //looks like we couldn't load the texture and GLES gave us back the default black tex...
+            Log.e(TAG,"tex slot " + _textureID + " could not be _loaded...");
+            return false;
+        }
+
+        this.width = width;
+        this.height = height;
+
+        return true;
+    }
+
 
     public void bind(){
         GLES20.glBindTexture(_textureType, _textureID);
     }
 
-    private Bitmap loadBitmapRgba(String path){
-        if(path == null){
-            return null;
-        }
-
-        AssetManager assetManager = GlobalContext.getAppContext().getAssets();
-        InputStream istr = null;
-        try {
-            istr = assetManager.open(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Rect outPadding = new Rect();
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inScaled = false;
-        // Read in the resource
-        //image = BitmapFactory.decodeStream(istr);
-        Bitmap image = BitmapFactory.decodeStream(istr, outPadding, options);
-
-        if(image == null){
-            Log.e(TAG, "Bitmap: " + path + " could not decode the Stream...");
-            return null;
-        }
-        return image;
-    }
-
     public boolean isCreatedSuccessfully(){
         return _createdSuccessfully;
     }
-    public int get_textureID(){
+    public int getTextureID(){
         return _textureID;
     }
 }

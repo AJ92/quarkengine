@@ -181,6 +181,8 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 gl) {
         surfaceView.onPreDrawFrame();
 
+        GLES20.glViewport(0, 0, window_size_x, window_size_y);
+
         eventFrame();
         drawWorld();
 
@@ -794,5 +796,13 @@ public class OpenGLEngine implements GLSurfaceView.Renderer {
 
     public Geometry getDefaultSpriteGeometry() {
         return sprite_geometry;
+    }
+
+    public int getSurfaceWidth(){
+        return window_size_x;
+    }
+
+    public int getSurfaceheight(){
+        return window_size_y;
     }
 }

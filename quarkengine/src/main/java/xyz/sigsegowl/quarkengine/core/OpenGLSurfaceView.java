@@ -41,6 +41,9 @@ public class OpenGLSurfaceView extends GLSurfaceView {
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
     }
 
+    public OpenGLEngine getRenderer() {
+        return renderer;
+    }
 
     @Override
     public void onPause(){
