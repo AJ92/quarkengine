@@ -14,6 +14,7 @@ import xyz.sigsegowl.quarkengine.components.gfx.Texture2D;
 public class Sprite extends Component {
     private Component _shader   = null;
     private Component _texture  = null;
+    private boolean _visible = true;
 
     public Sprite(Component shader, Component texture){
         if(!(shader instanceof Shader)){
@@ -51,6 +52,14 @@ public class Sprite extends Component {
             return;
         }
         _texture = texture;
+    }
+
+    public void setVisibile(boolean visibile){
+        _visible = visibile;
+    }
+
+    public boolean isVisible(){
+        return _visible;
     }
 
 }

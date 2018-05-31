@@ -67,9 +67,6 @@ public class SpriteRenderSystem extends System {
             if(drawSpriteEntity(e)) {
                 sprites += 1;
             }
-            else{
-                Log.e(TAG, "sprite skipped! Entity("+e.eid()+")");
-            }
         }
 
         long estimatedTime = java.lang.System.nanoTime() - startTime;
@@ -87,6 +84,7 @@ public class SpriteRenderSystem extends System {
         }
 
         last_texture = null; // reset last tex
+        last_shader = null;
     }
 
     public boolean drawSpriteEntity(Entity e){
@@ -103,6 +101,11 @@ public class SpriteRenderSystem extends System {
             sprite = (Sprite) sprite_components.get(0);
         }
         if(sprite == null){
+            return false;
+        }
+
+        //don't draw if set to invisible
+        if(!sprite.isVisible()){
             return false;
         }
 

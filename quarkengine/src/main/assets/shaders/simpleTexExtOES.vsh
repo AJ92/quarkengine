@@ -7,5 +7,6 @@ varying lowp vec3 texc;
 void main()
 {
     texc = a_TexCoord;
+    vec3 dontRemove = a_Normal;
     gl_Position = u_MVPMatrix * a_Position;
 }

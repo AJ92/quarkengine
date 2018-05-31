@@ -101,4 +101,12 @@ public class FrameBuffer {
     public void bindFrameBufferTexture(){
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, fboId);
     }
+
+    public void clear(){
+        GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
+    }
+
+    public ITexture getTexture() {
+        return color;
+    }
 }
