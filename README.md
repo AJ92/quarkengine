@@ -1,4 +1,4 @@
-# Quark
+# quarkengine
 Android openGL ES 2.0  3D-Engine
 
 Entity-Component-System based 3D-Engine for android running on openGL ES 2.0 or higher.
@@ -37,3 +37,25 @@ public class CustomOpenGLSurfaceView extends OpenGLSurfaceView{
     }
 }
 ```
+
+
+# setup
+
+Add the submodule
+```
+git submodule add https://github.com/AJ92/quarkengine.git
+```
+
+Add the module to your **build.gradle** (app) dependencies
+```
+implementation project(":quarkengine")
+```
+
+add the module to the include of **settings.gradle**
+```
+include ':app', ':quarkengine'
+```
+
+# example application
+
+See https://github.com/AJ92/quarkexample for example usage in an android studio project.
